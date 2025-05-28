@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tiếng Trung: Bài 1 - 认识新同学 🐼</title>
+    <style>
+        /* ----- CSS ----- */
+        :root {
+            --primary-color: #4A90E2; /* Xanh dương hiện đại */
+            --secondary-color: #50E3C2; /* Xanh ngọc lam */
+            --success-color: #7ED321; /* Xanh lá cây tươi sáng */
+            --warning-color: #F5A623; /* Vàng cam */
+            --danger-color: #D0021B; /* Đỏ */
+            --light-color: #FFFFFF; /* Trắng tinh khiết */
+            --bg-light-gray: #F4F7F6; /* Xám rất nhạt cho body */
+            --card-bg-color: #FFFFFF; /* Nền trắng cho card/section */
+            --text-dark-color: #333333; /* Màu chữ chính đậm */
+            --text-light-color: #5F6368; /* Màu chữ phụ nhạt hơn */
+            --border-color: #E0E6ED; /* Màu viền nhạt */
+            --font-family: 'Helvetica Neue', Arial, sans-serif;
+            --cute-yellow: #FFF8E1; /* Vàng kem nhạt hơn */
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            background-color: var(--bg-light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Để padding top có tác dụng */
+            min-height: 100vh;
+            padding: 25px; /* Tăng padding body */
+            margin: 0;
+            color: var(--text-dark-color);
+            box-sizing: border-box;
+        }
+
+        #game-container {
+            background-color: var(--card-bg-color);
+            padding: 30px 40px; /* Tăng padding */
+            border-radius: 20px; /* Bo tròn nhiều hơn */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08); /* Bóng đổ mềm mại hơn */
+            max-width: 850px; /* Tăng nhẹ max-width */
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUpSmooth 0.7s ease-out forwards 0.1s;
+        }
+
+        @keyframes fadeInUpSmooth {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 20px; /* Tăng margin bottom */
+            font-size: 2.4em; /* Tăng kích thước */
+            font-weight: 700; /* Đậm hơn */
+        }
+
+        #timer-section {
+            font-size: 1.25em; /* Tăng kích thước */
+            font-weight: 500;
+            margin-bottom: 25px; /* Tăng margin */
+            color: var(--primary-color);
+            background-color: #E9F5FF; /* Nền xanh dương rất nhạt */
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block; /* Để padding có tác dụng đúng */
+        }
+
+        #instructions p {
+            background-color: var(--cute-yellow);
+            border-left: 6px solid var(--warning-color); /* Viền dày hơn */
+            padding: 18px 22px; /* Tăng padding */
+            border-radius: 10px; /* Bo tròn nhiều hơn */
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 1.1em;
+            color: var(--text-light-color);
+            box-shadow: 0 3px 8px rgba(245, 166, 35, 0.15); /* Bóng đổ nhẹ cho instruction */
+        }
+        #instructions p i { /* Emoji or icon */
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+
+        #game-area {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .stage-title {
+            font-size: 1.8em; /* Tăng kích thước */
+            color: var(--secondary-color); /* Dùng màu phụ */
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color); /* Viền dưới rõ hơn */
+        }
+
+        /* Màn 1.1: Kéo thả */
+        #vocab-matching-area {
+            display: flex;
+            justify-content: space-between; /* Cách đều hơn */
+            margin-bottom: 25px;
+            min-height: 320px;
+            flex-wrap: wrap;
+            gap: 20px; /* Thêm khoảng cách giữa các cột */
+        }
+        .vocab-list-column, .meaning-list-column {
+            flex: 1; /* Cho phép co giãn */
+            min-width: 280px; /* Tăng độ rộng tối thiểu */
+            padding: 15px; /* Tăng padding */
+            border: 2px dashed var(--border-color); /* Viền rõ hơn */
+            border-radius: 10px;
+            background-color: #F9FAFB; /* Nền xám rất nhạt cho cột */
+        }
+        .draggable-item {
+            background-color: var(--light-color);
+            padding: 10px 15px; /* Tăng padding */
+            margin: 8px 0; /* Tăng margin */
+            border-radius: 8px; /* Bo tròn nhiều hơn */
+            cursor: grab;
+            border: 1px solid #E5E7EB; /* Viền nhạt */
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .draggable-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        .drop-target {
+            background-color: #F0F9FF; /* Nền xanh nhạt cho ô thả */
+            padding: 18px 15px; /* Tăng padding */
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 2px dashed var(--primary-color);
+            min-height: 45px; /* Tăng chiều cao tối thiểu */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .drop-target.over { border-style: solid; background-color: #D6EFFF; border-color: var(--primary-color); }
+        .drop-target.dropped-correct .draggable-item { background-color: var(--success-color); color: white; cursor: default; border-color: #6ABC74; }
+        .drop-target.incorrect-drop .draggable-item { background-color: var(--danger-color); color: white; border-color: #C0392B; }
+
+
+        /* Màn 1.2: Điền từ (Dropdown) */
+        .fill-sentence { margin-bottom: 15px; font-size: 1.15em; line-height: 2; }
+        .fill-sentence select {
+            padding: 8px 10px; /* Tăng padding */
+            font-size: 1em;
+            margin: 0 8px; /* Tăng margin */
+            border-radius: 6px; /* Bo tròn nhiều hơn */
+            border: 1px solid var(--border-color);
+            background-color: var(--light-color);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+            transition: border-color 0.2s ease;
+        }
+        .fill-sentence select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+
+        /* Màn 2.1: Hoàn thành câu */
+        .sentence-completion-item { margin-bottom: 18px; }
+        .sentence-completion-item label { display: block; margin-bottom: 8px; font-weight: normal; line-height: 1.8; color: var(--text-light-color); }
+        .sentence-completion-item input[type="text"] {
+            width: calc(100% - 24px); /* Full width with padding */
+            padding:10px 12px; /* Tăng padding */
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1.05em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .sentence-completion-item input[type="text"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+            outline: none;
+        }
+
+
+        /* Màn 3: Đọc hiểu */
+        .reading-passage-container {
+            background-color: #F9FAFB; /* Nền xám rất nhạt */
+            padding: 20px; /* Tăng padding */
+            border-radius: 10px;
+            margin-bottom: 25px;
+            line-height: 1.8; /* Tăng giãn dòng */
+            text-align: left;
+            max-height: 350px; /* Tăng chiều cao tối đa */
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+        }
+        .reading-passage-container p { margin-bottom: 0 !important; /* Adjusted for dialogue */ padding: 3px 0; }
+        .reading-passage-container .dialogue-line { margin-bottom: 0.5em; } /* Space between lines */
+        .reading-narrative { color: var(--text-light-color); font-style: italic; margin-bottom: 12px !important; display: block; }
+        .speaker { font-weight: 700; }
+        .speaker-zhang { color: var(--speaker-zhang-color); }
+        .speaker-pu { color: var(--speaker-pu-color); }
+        .speaker-shanxia { color: var(--speaker-shanxia-color); }
+        .speaker-feng { color: var(--speaker-feng-color); }
+        .speaker-chen { color: var(--speaker-chen-color); }
+
+        .reading-question { margin-bottom: 18px; }
+        .reading-question label { display: block; margin-bottom: 8px; font-weight: 500; /* Đậm vừa */ }
+        .reading-question textarea, .reading-question input[type="text"] {
+            width: calc(100% - 24px); /* Full width with padding */
+            padding: 12px; /* Tăng padding */
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            min-height: 35px;
+            font-size: 1em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .reading-question textarea:focus, .reading-question input[type="text"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+            outline: none;
+        }
+
+
+        /* Màn 4.1: Đặt câu (từng từ) */
+        #sc-current-word-area {
+            margin-bottom: 25px;
+            padding: 20px; /* Tăng padding */
+            background-color: var(--cute-yellow);
+            border-radius: 12px; /* Bo tròn nhiều hơn */
+            text-align: center;
+            border: 1px solid #FDE68A; /* Viền vàng nhạt */
+        }
+        #sc-current-word-hanzi { font-size: 2em; font-weight: 700; display: block; margin-bottom: 8px; color: var(--primary-color); }
+        #sc-current-word-pinyin { font-size: 1.2em; color: var(--text-light-color); display: block;}
+        #sc-current-word-meaning { font-size: 1.05em; color: #71717A; display: block; margin-top: 8px; font-style: italic;}
+        #sc-sentence-input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 18px; /* Tăng padding */
+            font-size: 1.15em; /* Tăng font size */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            min-height: 90px; /* Tăng chiều cao */
+            margin-bottom: 20px;
+            display: block;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+         #sc-sentence-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+            outline: none;
+        }
+
+
+        /* Màn 5.1: Viết đoạn */
+        #paragraph-writing-prompt {
+            background-color: #E9F5FF; /* Nền xanh dương rất nhạt */
+            padding: 20px; /* Tăng padding */
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-size: 1em; /* Tăng nhẹ font size */
+            border: 1px solid #BEE3F8; /* Viền xanh nhạt */
+        }
+        #paragraph-writing-prompt h4 { margin-top: 0; color: var(--primary-color); }
+        #paragraph-input {
+            width: calc(100% - 24px); /* Full width with padding */
+            min-height: 180px; /* Tăng chiều cao */
+            padding: 15px; /* Tăng padding */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1.05em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        #paragraph-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+            outline: none;
+        }
+        #char-count { font-size: 0.95em; color: var(--text-light-color); text-align: right; margin-top: 5px; }
+
+
+        #feedback-section {
+            margin-top: 20px;
+            padding: 15px 20px; /* Tăng padding */
+            border-radius: 8px;
+            min-height: 35px; /* Tăng chiều cao tối thiểu */
+            display: none;
+            word-wrap: break-word;
+            text-align: left;
+            font-size: 1.05em; /* Tăng font size */
+            box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+        }
+        #feedback-section.correct { background-color: #E6FFFA; color: #047857; border: 1px solid #99F6E4;} /* Xanh mint */
+        #feedback-section.incorrect { background-color: #FFF1F2; color: #C21E3D; border: 1px solid #FFD6D9;} /* Hồng nhạt */
+        #feedback-section.info { background-color: #EBF8FF; color: #2C5282; border: 1px solid #BEE3F8;} /* Xanh dương nhạt */
+        #feedback-section strong { display: block; margin-bottom: 8px; font-weight: 600;}
+
+        button { /* Nút bấm chung, có thể tùy chỉnh thêm cho từng loại */
+            background-image: linear-gradient(to right, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px; /* Tăng padding */
+            border-radius: 30px; /* Bo tròn nhiều hơn (hình viên thuốc) */
+            cursor: pointer;
+            font-size: 1.05em; /* Tăng nhẹ font size */
+            font-weight: 600; /* Đậm hơn */
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            letter-spacing: 0.5px; /* Thêm khoảng cách chữ */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            opacity: 0.9;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0px) scale(0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        button:disabled {
+            background-image: none;
+            background-color: #D1D5DB; /* Màu xám cho nút bị vô hiệu hóa */
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        #summary-page {
+            background-color: #F0F9FF; /* Nền xanh dương rất nhạt */
+            padding: 35px; /* Tăng padding */
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: left;
+            display: none;
+            border: 2px solid var(--primary-color); /* Viền rõ hơn */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        #summary-page h2 { text-align: center; color: var(--primary-color); font-size: 1.9em; margin-bottom: 25px;}
+        #summary-page p { font-size: 1.15em; margin-bottom: 12px;}
+        #summary-errors { padding-left: 0; list-style-type: none; } /* Bỏ dấu đầu dòng mặc định */
+        #summary-errors li {
+            color: var(--danger-color);
+            margin-bottom: 8px;
+            padding: 10px; /* Tăng padding */
+            background-color: #FFF1F2; /* Nền hồng nhạt cho lỗi */
+            border-radius: 6px;
+            border-left: 4px solid var(--danger-color);
+        }
+        #summary-errors li strong { color: var(--text-dark-color); }
+        #summary-errors small { color: #718096; display: block; margin-top: 4px; } /* Màu xám cho chi tiết lỗi */
+
+        .hidden { display: none !important; }
+        #skip-stage-button {
+            background-image: linear-gradient(to right, var(--warning-color) 0%, #FBBF24 100%); /* Gradient vàng */
+            color: var(--text-dark-color);
+            margin-left: 15px;
+        }
+        #hint-button {
+             background-image: linear-gradient(to right, #A78BFA 0%, #7C3AED 100%); /* Gradient tím */
+        }
+        #restart-button {
+             background-image: linear-gradient(to right, var(--secondary-color) 0%, #34D399 100%); /* Gradient xanh ngọc */
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Game Tiếng Trung: Bài 1 - 认识新同学 🤝</h1>
+        <div id="timer-section">⏳ Thời gian: <span id="timer">00:00</span></div>
+        <div id="instructions"><p>💖 Chào mừng bạn đến với Bài 1! Hãy cùng khám phá nhé!</p></div>
+        <div id="game-area"></div>
+        <div id="hint-section" style="text-align: center; margin-top:15px;"><button id="hint-button" class="hidden">💡 Gợi ý cho tôi nào!</button><p id="hint-text" style="margin-top:10px; font-style:italic; color: var(--text-light-color);"></p></div>
+        <div id="feedback-section"><p id="feedback-text"></p></div>
+        <div id="navigation-buttons" style="margin-top: 25px; text-align: center;">
+            <button id="next-stage-button" class="hidden">Tiếp tục Màn Sau ▶️</button>
+            <button id="skip-stage-button">Bỏ Qua Màn Này (Test) ⏩</button>
+        </div>
+    </div>
+    <div id="summary-page">
+        <h2>🎉 Hoàn Thành Bài Học! 🎉</h2>
+        <p>Tên học viên: <span id="summary-player-name"></span></p>
+        <p>Tổng thời gian: <span id="summary-time"></span></p>
+        <p>Số câu đúng: <span id="summary-correct"></span> (Tổng số mục đã làm: <span id="total-questions-summary"></span>)</p>
+        <p>Số câu sai/chưa hoàn hảo: <span id="summary-incorrect"></span></p>
+        <h3>Chi tiết lỗi/nhận xét:</h3>
+        <ul id="summary-errors"></ul>
+        <button id="restart-button">Chơi lại từ đầu 🔁</button>
+        </div>
+
+    <script>
+        // ----- DỮ LIỆU TRÒ CHƠI BÀI 1: 认识新同学 -----
+        const vocabMatchingData_B1 = [
+            { id: 1, hanzi: '智慧', pinyin: 'zhìhuì', meaning: 'trí tuệ / wisdom' },
+            { id: 2, hanzi: '来自', pinyin: 'láizì', meaning: 'đến từ / come from' },
+            { id: 3, hanzi: '诗(歌)', pinyin: 'shī(gē)', meaning: 'thơ ca / poetry' },
+            { id: 4, hanzi: '哲学', pinyin: 'zhéxué', meaning: 'triết học / philosophy' },
+            { id: 5, hanzi: '将来', pinyin: 'jiānglái', meaning: 'tương lai / future' },
+            { id: 6, hanzi: '计划', pinyin: 'jìhuà', meaning: 'kế hoạch / plan' },
+            { id: 7, hanzi: '通过', pinyin: 'tōngguò', meaning: 'thông qua, vượt qua / pass' },
+            { id: 8, hanzi: '流利', pinyin: 'liúlì', meaning: 'lưu loát / fluent' },
+            { id: 9, hanzi: '优秀', pinyin: 'yōuxiù', meaning: 'ưu tú, xuất sắc / excellent' },
+            { id: 10, hanzi: '孔子', pinyin: 'Kǒngzǐ', meaning: 'Khổng Tử / Confucius' },
+            { id: 11, hanzi: '君子', pinyin: 'jūnzǐ', meaning: 'quân tử / man of noble virtue' },
+            { id: 12, hanzi: '君子尚德', pinyin: 'jūnzǐ shàng dé', meaning: 'người quân tử coi trọng đức hạnh / an exemplary person esteems virtue' },
+            { id: 13, hanzi: '思考', pinyin: 'sīkǎo', meaning: 'suy nghĩ, tư duy / think' },
+            { id: 14, hanzi: '确实', pinyin: 'quèshí', meaning: 'quả thực, thực sự / indeed' },
+            { id: 15, hanzi: '比如', pinyin: 'bǐrú', meaning: 'ví dụ / for example' },
+            { id: 16, hanzi: '教育', pinyin: 'jiàoyù', meaning: 'giáo dục / education; educate' },
+            { id: 17, hanzi: '打交道', pinyin: 'dǎ jiāodao', meaning: 'giao tiếp, tiếp xúc / have dealings with' },
+            { id: 18, hanzi: '联系', pinyin: 'liánxì', meaning: 'liên hệ, kết nối / contact; connect' },
+            { id: 19, hanzi: '密切', pinyin: 'mìqiè', meaning: 'mật thiết, thân thiết / close' },
+            { id: 20, hanzi: '本科', pinyin: 'běnkē', meaning: 'đại học (cử nhân) / undergraduate course' },
+            { id: 21, hanzi: '毕业', pinyin: 'bìyè', meaning: 'tốt nghiệp / graduate' }
+        ];
+
+        const vocabFillData_B1_Set1 = {
+            options: ["将来", "来自", "通过", "哲学", "计划", "流利"],
+            sentences: [
+                { parts: ["我叫陈新阳, ", { placeholderID: "vf1_1_1", answer: "来自" }, " 马来西亚。我喜欢中国诗歌, 打算 ", { placeholderID: "vf1_1_2", answer: "将来" }, " 做汉语老师。我要努力学习, 希望二年级能 ", { placeholderID: "vf1_1_3", answer: "通过" }, " HSK6级考试。"] },
+                { parts: ["我喜欢中国 ", { placeholderID: "vf1_2_1", answer: "哲学" }, ", 所以我来中国留学。我 ", { placeholderID: "vf1_2_2", answer: "计划" }, " 好好学习汉语, 希望到三年级能 ", { placeholderID: "vf1_2_3", answer: "流利" }, " 地说汉语, 也能读懂孔子说过的话。"] }
+            ]
+        };
+
+        const vocabFillData_B1_Set2 = {
+            options: ["本科", "打交道", "毕业", "确实", "联系", "比如"],
+            sentences: [
+                { parts: ["我是 ", { placeholderID: "vf2_3_1", answer: "本科" }, " 一年级的学生, 学习汉语专业。我打算 ", { placeholderID: "vf2_3_2", answer: "毕业" }, " 以后当一名小学老师。每天和孩子们 ", { placeholderID: "vf2_3_3", answer: "打交道" }, " 多开心啊!"] },
+                { parts: ["来中国以后, 我经常思考一些问题。 ", { placeholderID: "vf2_4_1", answer: "比如" }, " , 我的汉语还不太流利, 用汉语说话 ", { placeholderID: "vf2_4_2", answer: "确实" }, " 有点儿难, 所以我得多 ", { placeholderID: "vf2_4_3", answer: "联系" }, " 我的中国朋友们, 多和他们练习口语。"] }
+            ]
+        };
+
+        const sentenceCompletionData_B1 = [
+            { id: "scb1_1", starter: "我的名字", hint: "爸爸给起的，他希望我", exampleSuffix: "。(Gợi ý: 希望...)" },
+            { id: "scb1_2", starter: "我", hint: "德国，我的专业是", exampleSuffix: "。(Gợi ý: 来自)" },
+            { id: "scb1_3", starter: "我对", hint: "特别感兴趣，所以我选择学习这个专业。", exampleSuffix: "(Gợi ý: 对...感兴趣)" },
+            { id: "scb1_4", starter: "", hint: "汉语好的话，", exampleSuffix: "比较容易找到好工作。(Gợi ý: ...的话，就...)" },
+            { id: "scb1_5", starter: "我打算", hint: "，希望将来能", exampleSuffix: "。(Gợi ý: 打算..., 希望...)" },
+            { id: "scb1_6", starter: "除了", hint: "以外，我还想", exampleSuffix: "。(Gợi ý: 除了...以外，还... )" },
+            { id: "scb1_7", starter: "我想向", hint: "学习，把", exampleSuffix: "介绍给", hint2: "。(Gợi ý: 向...学习，把...介绍给... )" }
+        ];
+
+        const KET_VAN_1_TEXT = `(新学期,全班要聚餐,大家正在商量去吃什么。)
+<span class="speaker speaker-zhang">张小薇:</span> 同学们,周五下课后我们一起去吃个饭怎么样?
+<span class="speaker speaker-pu">朴智慧:</span> 好啊,你们想吃什么?
+<span class="speaker speaker-shanxia">山下和也:</span> 去吃四川火锅吧!我一直都想试试川菜。
+<span class="speaker speaker-pu">朴智慧:</span> 四川火锅?我和朋友吃过一次,辣得我直流眼泪。我受不了中国的辣椒,也不太喜欢羊肉。
+<span class="speaker speaker-feng">冯尚德:</span> 那咱们换个饭馆。山下,日本人都不吃羊肉吗?
+<span class="speaker speaker-shanxia">山下和也:</span> 大部分日本人都不太喜欢羊肉。日本饮食清淡,所以味道比较重的食物不太受欢迎,包括动物的内脏。
+<span class="speaker speaker-zhang">张小薇:</span> 我觉得最好找一个清真饭馆,新阳是穆斯林。
+<span class="speaker speaker-chen">陈新阳:</span> 谢谢小薇!我不吃非清真的肉食。
+<span class="speaker speaker-feng">冯尚德:</span> 那我们去吃什么?小薇,你知道哪儿有好吃的吗?
+<span class="speaker speaker-zhang">张小薇:</span> 我想想。尚德、智慧,你们俩有什么不吃的吗?对什么食物过敏?
+<span class="speaker speaker-feng">冯尚德:</span> 过敏倒没有,但是我也不喜欢吃内脏、鸡爪子之类的。内脏有种奇怪的味道,鸡爪子看起来像人的手。对我来说这些都是“黑暗料理”。
+<span class="speaker speaker-pu">朴智慧:</span> 我不想吃快餐等太油腻的食物,不健康,最关键的是吃一口就胖。不过这样一来,也少了很多吃快餐的快乐。
+<span class="speaker speaker-zhang">张小薇:</span> 又好吃又健康的烤鱼?
+<span class="speaker speaker-shanxia">山下和也</span>、<span class="speaker speaker-chen">陈新阳</span>、<span class="speaker speaker-feng">冯尚德</span>、<span class="speaker speaker-pu">朴智慧:</span> 同意!
+<span class="speaker speaker-zhang">张小薇:</span> 那我们去吃清真烤鱼吧,有辣的,也有不辣的,还可以放些蔬菜。`;
+
+        const readingCompData_B1_B = {
+            title: "Phần 3.B: Đọc 课文(一) và trả lời",
+            passage: KET_VAN_1_TEXT, // Sử dụng biến đã format
+            questions: [
+                { id: "rcB_1", promptBefore: "为什么叫这个名字？朴智慧： (希望, 聪明) ", promptAfter: ""},
+                { id: "rcB_2", promptBefore: "马波罗： (向…学习, 把) ", promptAfter: ""},
+                { id: "rcB_3", promptBefore: "冯尚德： (孔子, 君子) ", promptAfter: ""},
+                { id: "rcB_4", promptBefore: "为什么学汉语？陈新阳： (诗歌) ", promptAfter: ""},
+                { id: "rcB_5", promptBefore: "冯尚德： (对…感兴趣) ", promptAfter: ""},
+                { id: "rcB_6", promptBefore: "山下和也： (…的话) ", promptAfter: ""},
+                { id: "rcB_7", promptBefore: "朴智慧： (将来) ", promptAfter: ""},
+                { id: "rcB_8", promptBefore: "马波罗： (像…那样) ", promptAfter: ""},
+                { id: "rcB_9", promptBefore: "张小薇： (了解) ", promptAfter: ""}
+            ],
+            subQuestionsLearningPlan: [
+                { id: "rcB_lp1", promptBefore: "有哪些学习计划？陈新阳： (打算, 通过) ", promptAfter: ""},
+                { id: "rcB_lp2", promptBefore: "山下和也： (先…, 半年以后…) ", promptAfter: ""},
+                { id: "rcB_lp3", promptBefore: "马波罗： (得, 流利) ", promptAfter: ""},
+                { id: "rcB_lp4", promptBefore: "张小薇： (想, 优秀) ", promptAfter: ""}
+            ]
+        };
+
+        const DOAN_VAN_1_TEXT = `我叫丁思思。我的名字是我爸爸给起的。我爸爸希望我做一个有智慧的人，遇事多思考，所以给我起了这个名字。我常常思考各种各样的问题，比如，我为什么要学习？我将来要做什么样的人？ 我是河内国家大学下属外国语大学教育学院本科一年级的学生，学习汉语教育专业。我来自越南首都河内。 我选择这个专业，主要是因为我对中国文化很感兴趣，特别是中国古代哲学和教育思想。我希望将来能成为一名优秀的汉语老师，把中国文化介绍给更多的越南学生。为了实现这个目标，我计划在大学期间努力学习专业知识，多跟中国老师和同学打交道，提高自己的汉语水平。我还打算申请去中国交流学习一年，亲身体验中国文化。毕业以后，我想先在一所中学当汉语老师，积累一些教学经验，然后再考虑读研究生。 我觉得和学生们打交道是一件非常有意思的事情，能帮助他们学习和成长，我感到很开心。我相信，只要我努力，我的理想一定能实现。 `;
+
+        const readingCompData_B1_C = {
+            title: "Phần 3.C: Đọc 短文(一) (丁思思) và trả lời",
+            passage: DOAN_VAN_1_TEXT,
+            questions: [
+                { id: "rcC_1", text: "她叫什么名字？爸爸妈妈为什么给她起这个名字？(思考)", keywords: ["思考"] },
+                { id: "rcC_2", text: "她常常思考什么问题？(各种各样, 比如)", keywords: ["各种各样", "比如"] },
+                { id: "rcC_3", text: "她学什么专业？为什么？(教育, 来自)", keywords: ["教育", "来自"] },
+                { id: "rcC_4", text: "她有哪些计划？(多, 将来)", keywords: ["多", "将来"] },
+                { id: "rcC_5", text: "她觉得做什么事情很有意思？(和…打交道)", keywords: ["和…打交道"] }
+            ]
+        };
+
+        const sentenceCreationWords_B1 = [
+            { hanzi: '智慧', pinyin: 'zhìhuì', meaning: 'trí tuệ / wisdom' }, { hanzi: '来自', pinyin: 'láizì', meaning: 'đến từ / come from' },
+            { hanzi: '计划', pinyin: 'jìhuà', meaning: 'kế hoạch / plan' }, { hanzi: '通过', pinyin: 'tōngguò', meaning: 'thông qua, vượt qua / pass' },
+            { hanzi: '流利', pinyin: 'liúlì', meaning: 'lưu loát / fluent' }, { hanzi: '优秀', pinyin: 'yōuxiù', meaning: 'ưu tú, xuất sắc / excellent' },
+            { hanzi: '思考', pinyin: 'sīkǎo', meaning: 'suy nghĩ, tư duy / think' }, { hanzi: '比如', pinyin: 'bǐrú', meaning: 'ví dụ / for example' },
+            { hanzi: '打交道', pinyin: 'dǎ jiāodao', meaning: 'giao tiếp, tiếp xúc / have dealings with' }, { hanzi: '密切', pinyin: 'mìqiè', meaning: 'mật thiết, thân thiết / close' }
+        ];
+
+        const paragraphWritingData_B1 = {
+            title: "自我介绍 (Tự giới thiệu)",
+            instructions: "Dựa theo cấu trúc \"任务一 自我介绍\" (PDF trang 12)\nHãy viết một đoạn văn giới thiệu bản thân bằng tiếng Trung, bao gồm các nội dung sau:\n1. Tên của bạn.\n2. Tại sao bạn có tên đó? (Có thể tự sáng tạo nếu không có câu chuyện đặc biệt)\n3. Chuyên ngành của bạn là gì? (Hoặc môn học bạn yêu thích nếu chưa có chuyên ngành)\n4. Tại sao bạn học chuyên ngành/môn học đó?\n5. Bạn có những kế hoạch học tập nào?",
+            structureHint: "Cấu trúc gợi ý sau:\n大家好，我叫 [Điền tên của bạn]。\n我为什么叫这个名字呢？ [Giải thích ý nghĩa tên của bạn hoặc lý do có tên đó]。\n我的专业是 [Điền chuyên ngành của bạn]。 (Hoặc: 我喜欢的科目是...)\n我为什么学习这个专业呢？ (Hoặc: 我为什么喜欢这个科目呢？) [Giải thích lý do]。\n我有很多学习计划，比如：[Nêu một vài kế hoạch học tập, ví dụ: 我打算每天练习汉语口语半个小时，希望一年以后能通过HSK4级考试。我还想多看中国电影，了解中国文化。]。",
+            vocabHint: "Từ vựng có thể sử dụng (tham khảo PDF trang 13 ):\n姓名: 智慧, 思考, 发音像...\n专业: 诗(歌), 哲学, 教育, 打交道, 联系, 密切, 文学, 国际关系, 国际经济, 金融贸易, 计算机\n计划: 将来, 计划, 通过, 流利, 优秀, 本科, 毕业, 实习, 外交官, 理想\n其他: 来自, 确实, 比如"
+        };
+
+        // ----- BIẾN TRẠNG THÁI GAME -----
+        let currentStage = 0; let gameStages = []; let totalQuestionsInGame = 0;
+        let startTime; let timerInterval;
+        let gameResults = { correct: 0, incorrect: 0, errors: [], totalTime: '00:00' };
+        let playerName = "";
+        let currentVocabMatchingPairs = []; let currentFillSentenceIndex = 0; let currentSentenceCompletionIndex = 0; let currentReadingQuestionIndex = 0; let currentSentenceCreationWordIndex_B1 = 0;
+        let currentTargetWordForSC_B1 = null;
+
+        // ----- DOM ELEMENTS -----
+        const getEl = (id) => document.getElementById(id);
+        const timerEl = () => getEl('timer'); const instructionsEl = () => getEl('instructions'); const gameAreaEl = () => getEl('game-area'); const hintButtonEl = () => getEl('hint-button'); const hintTextEl = () => getEl('hint-text'); const feedbackSectionEl = () => getEl('feedback-section'); const feedbackTextEl = () => getEl('feedback-text'); const nextStageButtonEl = () => getEl('next-stage-button'); const skipStageButtonEl = () => getEl('skip-stage-button'); const summaryPageEl = () => getEl('summary-page'); const gameContainerEl = () => getEl('game-container');
+
+
+        // ----- FUNCTIONS -----
+        // --- Helper Functions (Shuffle, Timer, UI, Feedback, AI) ---
+        function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } }
+        function startTimer() { startTime = Date.now(); if(timerInterval) clearInterval(timerInterval); timerInterval = setInterval(updateTimer, 1000); updateTimer(); }
+        function updateTimer() { const currentTimerEl = timerEl(); if (!currentTimerEl) { if (timerInterval) clearInterval(timerInterval); return; } const elapsedTime = Math.floor((Date.now() - startTime) / 1000); const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0'); const seconds = (elapsedTime % 60).toString().padStart(2, '0'); currentTimerEl.textContent = `${minutes}:${seconds}`; gameResults.totalTime = `${minutes}:${seconds}`; }
+        function stopTimer() { if(timerInterval) clearInterval(timerInterval); timerInterval = null; }
+        function setInstructions(htmlContentWithIcon) { const currentInstructionsEl = instructionsEl(); if (currentInstructionsEl) { currentInstructionsEl.innerHTML = `<p><i>💖</i> ${htmlContentWithIcon}</p>`; } }
+        function showFeedback(isCorrect, message) { const currentFeedbackSectionEl = feedbackSectionEl(); const currentFeedbackTextEl = feedbackTextEl(); if (!currentFeedbackSectionEl || !currentFeedbackTextEl) return; currentFeedbackTextEl.innerHTML = message; currentFeedbackSectionEl.className = ''; currentFeedbackSectionEl.classList.add(isCorrect ? 'correct' : 'incorrect'); currentFeedbackSectionEl.style.display = 'block'; }
+        function recordResult(isCorrect, stageName, input, issue) { if (isCorrect) { gameResults.correct++; } else { gameResults.incorrect++; gameResults.errors.push({ stage: stageName, input: input || 'N/A', issue }); } console.log("Game Results Updated:", JSON.stringify(gameResults)); }
+        function clearFeedback() { const currentFeedbackSectionEl = feedbackSectionEl(); const currentFeedbackTextEl = feedbackTextEl(); if (!currentFeedbackSectionEl || !currentFeedbackTextEl) return; currentFeedbackTextEl.textContent = ''; currentFeedbackSectionEl.style.display = 'none'; currentFeedbackSectionEl.className = ''; }
+        async function showHint() { const currentHintTextEl = hintTextEl(); const currentHintButtonEl = hintButtonEl(); if (!currentHintTextEl || !currentHintButtonEl) return; currentHintButtonEl.disabled = true; currentHintTextEl.textContent = "🧠 AI đang tạo gợi ý..."; let hint = "Chức năng gợi ý chưa sẵn sàng cho màn này."; const currentStageLoader = gameStages[currentStage-1]; if (currentStageLoader) { const stageName = currentStageLoader.name; if (stageName === 'loadSentenceCreationStage_B1' && currentTargetWordForSC_B1) { hint = `Hãy thử đặt một câu hoàn chỉnh với từ "${currentTargetWordForSC_B1.hanzi}" (${currentTargetWordForSC_B1.pinyin}) có nghĩa là "${currentTargetWordForSC_B1.meaning}".`;} else if (stageName === 'loadVocabFillStage_B1_Set1' || stageName === 'loadVocabFillStage_B1_Set2') { hint = "Chọn từ bạn cho là đúng nhất với ngữ cảnh câu."; } } currentHintTextEl.textContent = hint; currentHintButtonEl.disabled = false; }
+        function clearHint() { const currentHintTextEl = hintTextEl(); if (currentHintTextEl) currentHintTextEl.textContent = ''; }
+
+        async function callAI(prompt) {
+            const currentFeedbackEl = feedbackTextEl(); const currentFeedbackSectionEl = feedbackSectionEl();
+            let purpose = "AI Check";
+            if (prompt.includes("tạo một gợi ý")) { purpose = "Generate Hint"; }
+
+            console.log(`--- Calling AI (Gemini Flash) for ${purpose} ---`); console.log(prompt);
+            if (!currentFeedbackEl || !currentFeedbackSectionEl) { console.error("Feedback elements not found!"); return { isCorrect: false, explanation: "Lỗi giao diện." }; }
+
+            if (purpose !== 'Generate Hint') { currentFeedbackEl.textContent = "🧠 AI đang suy nghĩ..."; currentFeedbackSectionEl.className = ''; currentFeedbackSectionEl.classList.add('info'); currentFeedbackSectionEl.style.display = 'block'; }
+            else { hintTextEl().textContent = "🧠 AI đang tạo gợi ý..."; }
+
+            const apiKey = 'AIzaSyA7JKJYFmL8L05PDzoekqlu40A_BTWgrkE';
+
+            const modelName = 'gemini-1.5-flash-latest';
+            const apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+            const generationConfig = { temperature: 0.3, maxOutputTokens: 600 };
+            const safetySettings = [ { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" }, { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" }, { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" }, { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }, ];
+
+            try {
+                const response = await fetch(apiEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ contents: [{ parts: [{ "text": prompt }] }], generationConfig: generationConfig, safetySettings: safetySettings }), });
+                if (!response.ok) { let errorData; try { errorData = await response.json(); } catch (e) { errorData = { error: { message: await response.text() || 'Unknown API error' } }; } throw new Error(`API Error ${response.status}: ${errorData?.error?.message || response.statusText}`); }
+                const data = await response.json();
+                if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content || !data.candidates[0].content.parts || data.candidates[0].content.parts.length === 0) {
+                    let blockReason = data?.promptFeedback?.blockReason || 'No candidate parts in response.';
+                    if (data?.candidates && data.candidates[0]?.finishReason && data.candidates[0].finishReason !== "STOP") {
+                        blockReason += ` Finish Reason: ${data.candidates[0].finishReason}.`;
+                    }
+                    throw new Error(`AI response blocked or empty. Reason: ${blockReason}`);
+                }
+                const aiTextResponse = data.candidates[0].content.parts[0].text;
+                console.log("AI Raw Response:", aiTextResponse);
+
+                if (purpose === 'Generate Hint') { return { explanation: aiTextResponse }; }
+                else {
+                    let lowerResponse = aiTextResponse.toLowerCase(); let isCorrect = false;
+                    if (lowerResponse.startsWith("đánh giá: đúng") || lowerResponse.startsWith("đánh giá: đúng.")) { isCorrect = true; }
+                    else if (lowerResponse.startsWith("đánh giá tổng thể: đúng")) { isCorrect = true; }
+
+                    let explanation = aiTextResponse;
+                    if (isCorrect) {
+                        const nhậnXétMarker = "nhận xét:";
+                        const nhậnXétIndex = lowerResponse.indexOf(nhậnXétMarker);
+                        if (nhậnXétIndex !== -1) {
+                            explanation = "Đánh giá: Đúng. " + aiTextResponse.substring(nhậnXétIndex + nhậnXétMarker.length).trim();
+                        } else if (!lowerResponse.startsWith("đánh giá: đúng")) {
+                             explanation = "Đánh giá: Đúng. " + aiTextResponse;
+                        }
+                    }
+                    return { isCorrect, explanation };
+                }
+            } catch (error) {
+                console.error(`Error calling ${modelName} API for ${purpose}:`, error);
+                let errorMessage = "Lỗi khi gọi AI. Vui lòng thử lại hoặc bỏ qua.";
+                if (error.message.includes("API Key not valid")) {
+                    errorMessage = "Lỗi: API Key không hợp lệ. Vui lòng kiểm tra lại API Key.";
+                } else if (error.message.includes("API Error 429")) {
+                    errorMessage = "Lỗi: Vượt quá giới hạn yêu cầu tới AI. Vui lòng thử lại sau ít phút.";
+                } else if (error.message.includes("AI response blocked")) {
+                    errorMessage = "Lỗi: Phản hồi từ AI bị chặn do vấn đề an toàn hoặc nội dung không phù hợp. Chi tiết: " + error.message;
+                }
+
+                if (purpose === 'Generate Hint') { hintTextEl().textContent = errorMessage; hintButtonEl().disabled = false; return { explanation: errorMessage }; }
+                else { currentFeedbackEl.textContent = errorMessage; currentFeedbackSectionEl.className = ''; currentFeedbackSectionEl.classList.add('incorrect'); currentFeedbackSectionEl.style.display = 'block'; throw error; }
+            }
+        }
+
+        // ----- STAGE LOADING AND CHECKING FUNCTIONS (BÀI 1) -----
+        function loadVocabMatchingStage_B1() {
+            setInstructions("🤝 Màn 1.1: Nối Từ. Kéo từ tiếng Trung (Hán tự & Pinyin) vào ô nghĩa tiếng Việt tương ứng.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+
+            const words = vocabMatchingData_B1.map(item => ({ id: item.id, text: `${item.hanzi} (${item.pinyin})`}));
+            const meanings = vocabMatchingData_B1.map(item => ({ id: item.id, text: item.meaning }));
+            shuffleArray(words);
+            shuffleArray(meanings);
+
+            let wordHTML = words.map(w => `<div class="draggable-item" draggable="true" data-id="${w.id}">${w.text}</div>`).join('');
+            let meaningHTML = meanings.map(m => `<div class="drop-target" data-target-id="${m.id}"><span class="meaning-text">${m.text}</span></div>`).join('');
+
+            gameArea.innerHTML = `
+                <h3 class="stage-title">Bài 1.1: Nối Từ Với Pinyin và Nghĩa</h3>
+                <div id="vocab-matching-area">
+                    <div class="vocab-list-column" id="drag-source-column">${wordHTML}</div>
+                    <div class="meaning-list-column" id="drop-target-column">${meaningHTML}</div>
+                </div>
+                <button id="check-matching-b1">Kiểm Tra Nối Từ</button>
+            `;
+            addDragDropListeners_B1();
+            getEl('check-matching-b1').addEventListener('click', checkVocabMatching_B1);
+        }
+
+        function addDragDropListeners_B1() {
+            const draggables = document.querySelectorAll('.draggable-item');
+            const targets = document.querySelectorAll('.drop-target');
+            let draggedItem = null;
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = draggable;
+                    e.dataTransfer.setData('text/plain', draggable.dataset.id);
+                    setTimeout(() => draggable.style.opacity = '0.5', 0);
+                });
+                draggable.addEventListener('dragend', () => {
+                    setTimeout(() => {
+                        draggable.style.opacity = '1';
+                        draggedItem = null;
+                    }, 0);
+                });
+            });
+
+            targets.forEach(target => {
+                target.addEventListener('dragover', (e) => { e.preventDefault(); target.classList.add('over'); });
+                target.addEventListener('dragleave', () => { target.classList.remove('over'); });
+                target.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    target.classList.remove('over');
+                    if (draggedItem && !target.querySelector('.draggable-item')) {
+                        target.appendChild(draggedItem);
+                    } else if (draggedItem) {
+                        console.log("Target already has an item or no dragged item.");
+                    }
+                });
+            });
+        }
+
+        function checkVocabMatching_B1() {
+            let correctMatches = 0;
+            const targets = document.querySelectorAll('.drop-target');
+            targets.forEach(target => {
+                const droppedWordEl = target.querySelector('.draggable-item');
+                target.classList.remove('dropped-correct', 'incorrect-drop');
+                if (droppedWordEl) {
+                    const wordId = droppedWordEl.dataset.id;
+                    const targetId = target.dataset.targetId;
+                    if (wordId === targetId) {
+                        correctMatches++;
+                        target.classList.add('dropped-correct');
+                         const wordInside = target.querySelector('.draggable-item');
+                         if(wordInside) wordInside.draggable = false;
+                    } else {
+                        target.classList.add('incorrect-drop');
+                    }
+                }
+            });
+            if(gameStages[currentStage-1]?.name === "loadVocabMatchingStage_B1" && !getEl('check-matching-b1').dataset.counted) {
+                totalQuestionsInGame += vocabMatchingData_B1.length;
+                getEl('check-matching-b1').dataset.counted = 'true';
+            }
+            recordResult(correctMatches === vocabMatchingData_B1.length, "Bài 1.1 Nối từ", `Đúng ${correctMatches}/${vocabMatchingData_B1.length}`, correctMatches === vocabMatchingData_B1.length ? "" : "Một số cặp nối chưa đúng.");
+            showFeedback(correctMatches === vocabMatchingData_B1.length, `Bạn đã nối đúng ${correctMatches} / ${vocabMatchingData_B1.length} cặp.`);
+            if (correctMatches === vocabMatchingData_B1.length) {
+                nextStageButtonEl()?.classList.remove('hidden');
+                getEl('check-matching-b1').disabled = true;
+                const sourceColumn = getEl('drag-source-column');
+                if (sourceColumn) sourceColumn.innerHTML = "<p style='color:grey; text-align:center;'>Đã hoàn thành!</p>";
+            }
+        }
+
+        function loadVocabFillStage_B1_Set1() {
+            setInstructions("✍️ Màn 1.2 (Set 1): Chọn Từ. Chọn từ thích hợp từ danh sách để điền vào chỗ trống.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+
+            let sentencesHTML = vocabFillData_B1_Set1.sentences.map((sentenceData, index) => {
+                let sentenceHTML = `<div class="fill-sentence" id="vf1_sentence_${index + 1}"><span>${index + 1}. </span>`;
+                sentenceData.parts.forEach(part => {
+                    if (typeof part === 'string') {
+                        sentenceHTML += `<span>${part}</span>`;
+                    } else {
+                        sentenceHTML += `<select id="${part.placeholderID}">`;
+                        sentenceHTML += `<option value="">---Chọn---</option>`;
+                        vocabFillData_B1_Set1.options.forEach(opt => {
+                            sentenceHTML += `<option value="${opt}">${opt}</option>`;
+                        });
+                        sentenceHTML += `</select>`;
+                    }
+                });
+                sentenceHTML += `</div>`;
+                return sentenceHTML;
+            }).join('');
+
+            gameArea.innerHTML = `
+                <h3 class="stage-title">Bài 1.2: Chọn Từ (Set 1)</h3>
+                <p style="font-style:italic;"><strong>Từ để chọn:</strong> ${vocabFillData_B1_Set1.options.join(' • ')}</p>
+                ${sentencesHTML}
+                <button id="check-vocab-fill-s1">Kiểm Tra Điền Từ (Set 1)</button>
+            `;
+            getEl('check-vocab-fill-s1').addEventListener('click', () => checkVocabFill_B1(vocabFillData_B1_Set1, "check-vocab-fill-s1", "Bài 1.2 Set 1"));
+        }
+
+        function loadVocabFillStage_B1_Set2() {
+            setInstructions("✍️ Màn 1.2 (Set 2): Chọn Từ. Chọn từ thích hợp từ danh sách để điền vào chỗ trống.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+
+            let sentencesHTML = vocabFillData_B1_Set2.sentences.map((sentenceData, index) => {
+                let sentenceHTML = `<div class="fill-sentence" id="vf2_sentence_${index + 1}"><span>${index + 3}. </span>`;
+                sentenceData.parts.forEach(part => {
+                    if (typeof part === 'string') {
+                        sentenceHTML += `<span>${part}</span>`;
+                    } else {
+                        sentenceHTML += `<select id="${part.placeholderID}">`;
+                        sentenceHTML += `<option value="">---Chọn---</option>`;
+                        vocabFillData_B1_Set2.options.forEach(opt => {
+                            sentenceHTML += `<option value="${opt}">${opt}</option>`;
+                        });
+                        sentenceHTML += `</select>`;
+                    }
+                });
+                sentenceHTML += `</div>`;
+                return sentenceHTML;
+            }).join('');
+
+            gameArea.innerHTML = `
+                <h3 class="stage-title">Bài 1.2: Chọn Từ (Set 2)</h3>
+                <p style="font-style:italic;"><strong>Từ để chọn:</strong> ${vocabFillData_B1_Set2.options.join(' • ')}</p>
+                ${sentencesHTML}
+                <button id="check-vocab-fill-s2">Kiểm Tra Điền Từ (Set 2)</button>
+            `;
+            getEl('check-vocab-fill-s2').addEventListener('click', () => checkVocabFill_B1(vocabFillData_B1_Set2, "check-vocab-fill-s2", "Bài 1.2 Set 2"));
+        }
+
+        function checkVocabFill_B1(dataObject, buttonId, stageIdentifier) {
+            let correctCount = 0;
+            let totalBlanksInThisSet = 0;
+            const feedbackMessages = [];
+            dataObject.sentences.forEach((sentenceData, sentenceIndex) => {
+                sentenceData.parts.forEach(part => {
+                    if (typeof part !== 'string') {
+                        totalBlanksInThisSet++;
+                        const selectEl = getEl(part.placeholderID);
+                        if (selectEl) {
+                             const selectedValue = selectEl.value;
+                             if (selectedValue === part.answer) {
+                                 correctCount++;
+                                 selectEl.style.borderColor = 'green';
+                             } else {
+                                 selectEl.style.borderColor = 'red';
+                                 feedbackMessages.push(`Câu ${sentenceIndex + 1} (trong set), chỗ trống "${part.answer}" chọn sai.`);
+                             }
+                        } else {
+                             console.error("Không tìm thấy select element:", part.placeholderID);
+                        }
+                    }
+                });
+            });
+
+            const checkButton = getEl(buttonId);
+            if(checkButton && !checkButton.dataset.counted) {
+                totalQuestionsInGame += totalBlanksInThisSet;
+                checkButton.dataset.counted = 'true';
+            }
+
+            recordResult(correctCount === totalBlanksInThisSet, stageIdentifier, `Đúng ${correctCount}/${totalBlanksInThisSet}`, correctCount === totalBlanksInThisSet ? "" : feedbackMessages.join(" "));
+            showFeedback(correctCount === totalBlanksInThisSet, `Bạn đã điền đúng ${correctCount} / ${totalBlanksInThisSet} chỗ trống. ${correctCount !== totalBlanksInThisSet ? 'Hãy xem lại các chỗ bôi đỏ.' : ''}`);
+            if (correctCount === totalBlanksInThisSet) {
+                nextStageButtonEl()?.classList.remove('hidden');
+                if(checkButton) checkButton.disabled = true;
+            } else {
+                if(checkButton) checkButton.disabled = false;
+            }
+        }
+
+        function loadSentenceCompletionStage_B1() {
+            setInstructions("📝 Màn 2.1: Hoàn Thành Câu. Viết tiếp vào chỗ trống để tạo thành câu hoàn chỉnh, đúng ngữ pháp và tự nhiên.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+            if(!gameArea.dataset.questionsCounted_sc_b1) {
+                 totalQuestionsInGame += sentenceCompletionData_B1.length;
+                 gameArea.dataset.questionsCounted_sc_b1 = 'true';
+            }
+
+            let itemsHTML = sentenceCompletionData_B1.map((item, index) => {
+                 return `
+                     <div class="sentence-completion-item">
+                         <label for="scb1_input_${item.id}">
+                             ${index + 1}. ${item.starter}
+                             <input type="text" id="scb1_input_${item.id}" placeholder="Viết tiếp vào đây..." data-hint-text="${item.hint || ''}">
+                             ${item.exampleSuffix || ''}
+                         </label>
+                     </div>`;
+             }).join('');
+
+            gameArea.innerHTML = `
+                <h3 class="stage-title">Bài 2.1: Hoàn Thành Câu</h3>
+                ${itemsHTML}
+                <button id="check-sc-b1">Kiểm Tra Hoàn Thành Câu</button>
+            `;
+            getEl('check-sc-b1').addEventListener('click', checkAllSentenceCompletions_B1);
+        }
+        async function checkAllSentenceCompletions_B1() {
+             const submitButton = getEl('check-sc-b1');
+             submitButton.disabled = true; submitButton.textContent = "AI đang kiểm tra..."; clearFeedback();
+             let allCorrectThisCheck = true; let stageFeedback = [];
+
+             for (let i = 0; i < sentenceCompletionData_B1.length; i++) {
+                 const item = sentenceCompletionData_B1[i];
+                 const userInputEl = getEl(`scb1_input_${item.id}`);
+                 const userInput = userInputEl.value.trim();
+                 const fullSentenceAttempt = item.starter + userInput + (item.exampleSuffix || '');
+
+                 if (!userInput) {
+                     userInputEl.style.borderColor = 'red'; allCorrectThisCheck = false;
+                     recordResult(false, `Bài 2.1 Câu ${i+1}`, "Chưa nhập", "Chưa hoàn thành câu.");
+                     stageFeedback.push(`Câu ${i+1}: Bạn chưa hoàn thành câu.`);
+                     userInputEl.placeholder = "Vui lòng điền vào đây!";
+                 } else {
+                     // UPDATED PROMPT for Sentence Completion
+                     const prompt = `
+                        Bạn là một giáo viên tiếng Trung đang chấm bài cho học sinh.
+                        Nhiệm vụ: Học sinh cần điền vào chỗ trống để hoàn thành câu.
+                        Câu cho sẵn có dạng: "${item.starter} ______ ${item.exampleSuffix || ''}"
+                        Phần học sinh điền vào chỗ trống (______): "${userInput}"
+                        Câu đầy đủ mà học sinh tạo ra là: "${fullSentenceAttempt}"
+
+                        Yêu cầu đánh giá CHÍNH:
+                        1.  **Ngữ pháp:** Phần điền ("${userInput}") có làm cho câu đầy đủ ("${fullSentenceAttempt}") đúng ngữ pháp tiếng Trung không?
+                        2.  **Cách dùng từ:** Cách dùng từ trong phần điền ("${userInput}") có phù hợp và tự nhiên khi ghép với phần còn lại của câu không?
+                        3.  **Logic và tự nhiên của câu hoàn chỉnh:** Câu đầy đủ ("${fullSentenceAttempt}") có logic, ý nghĩa rõ ràng và nghe tự nhiên không?
+                        LƯU Ý: KHÔNG cần học sinh phải sử dụng một từ vựng cụ thể nào đó từ gợi ý (nếu có). Chỉ cần câu hoàn chỉnh đúng và tự nhiên.
+
+                        Định dạng trả lời BẮT BUỘC:
+                        Đánh giá: [Đúng/Sai]
+                        Nhận xét: [Nếu Sai, giải thích NGẮN GỌN lỗi ngữ pháp hoặc cách dùng từ trong phần "${userInput}" khiến câu "${fullSentenceAttempt}" chưa đúng/chưa tự nhiên, và gợi ý cách sửa NGẮN GỌN cho phần "${userInput}". Nếu Đúng, ghi "Câu tốt, ngữ pháp và cách dùng từ phù hợp, tự nhiên." hoặc khen tương tự.]
+                    `;
+                     try {
+                         const aiResult = await callAI(prompt);
+                         recordResult(aiResult.isCorrect, `Bài 2.1 Câu ${i+1}`, fullSentenceAttempt, aiResult.isCorrect ? "" : aiResult.explanation);
+                         if (!aiResult.isCorrect) { allCorrectThisCheck = false; userInputEl.style.borderColor = 'red'; }
+                         else { userInputEl.style.borderColor = 'green'; }
+                         stageFeedback.push(`<strong>Câu ${i+1}:</strong> ${aiResult.explanation.replace(/\n/g, '<br>')}`);
+                     } catch (error) { allCorrectThisCheck = false; recordResult(false, `Bài 2.1 Câu ${i+1}`, fullSentenceAttempt, `Lỗi API: ${error.message}`); stageFeedback.push(`<strong>Câu ${i+1}:</strong> Lỗi khi kiểm tra với AI.`); userInputEl.style.borderColor = 'orange'; }
+                 }
+             }
+             showFeedback(allCorrectThisCheck, stageFeedback.join("<br><br>"));
+             submitButton.disabled = false; submitButton.textContent = "Kiểm Tra Hoàn Thành Câu";
+             if (allCorrectThisCheck) { nextStageButtonEl()?.classList.remove('hidden'); submitButton.disabled = true; }
+        }
+
+        function loadReadingCompStage_B1_A() {
+            setInstructions("📖 Màn 3.A: Đọc Hiểu. Trả lời các câu hỏi sau.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+            if(!gameArea.dataset.questionsCounted_rcA) { totalQuestionsInGame += readingCompData_B1_A.questions.length; gameArea.dataset.questionsCounted_rcA = 'true'; }
+
+            let questionsHTML = readingCompData_B1_A.questions.map((q, index) => `
+                <div class="reading-question">
+                    <label for="rcA_input_${q.id}">${index + 1}. ${q.text}</label>
+                    <textarea id="rcA_input_${q.id}" rows="3"></textarea>
+                </div>
+            `).join('');
+            gameArea.innerHTML = `<h3 class="stage-title">${readingCompData_B1_A.title}</h3>${questionsHTML}<button id="check-rcA">Kiểm Tra</button>`;
+            getEl('check-rcA').addEventListener('click', checkAllReadingComp_B1_A);
+        }
+        async function checkAllReadingComp_B1_A() {
+             const submitButton = getEl('check-rcA'); submitButton.disabled = true; submitButton.textContent = "AI đang kiểm tra..."; clearFeedback();
+             let allCorrectThisCheck = true; let stageFeedback = [];
+             for (let i = 0; i < readingCompData_B1_A.questions.length; i++) {
+                 const q = readingCompData_B1_A.questions[i];
+                 const userAnswer = getEl(`rcA_input_${q.id}`).value.trim();
+                 if(!userAnswer) { allCorrectThisCheck = false; stageFeedback.push(`Câu ${i+1}: Chưa trả lời.`); recordResult(false, `Bài 3.A Q${i+1}`, "Chưa nhập", "Chưa trả lời"); getEl(`rcA_input_${q.id}`).style.borderColor = 'red'; continue;}
+                 const prompt = `Bạn là giáo viên tiếng Trung. Câu hỏi là: "${q.text}". Học sinh trả lời bằng tiếng Trung: "${userAnswer}". Câu trả lời có phù hợp, logic và diễn đạt tốt không? Trả lời THEO ĐÚNG ĐỊNH DẠNG: "Đánh giá: [Đúng/Sai]\nNhận xét: [Nhận xét NGẮN GỌN, nếu sai đưa ra gợi ý sửa]".`;
+                 try {
+                     const aiResult = await callAI(prompt);
+                     recordResult(aiResult.isCorrect, `Bài 3.A Q${i+1}`, userAnswer, aiResult.isCorrect ? "" : aiResult.explanation);
+                     if(!aiResult.isCorrect) allCorrectThisCheck = false;
+                     getEl(`rcA_input_${q.id}`).style.borderColor = aiResult.isCorrect ? 'green' : 'red';
+                     stageFeedback.push(`<strong>Câu ${i+1}:</strong> ${aiResult.explanation.replace(/\n/g, '<br>')}`);
+                 } catch (e) { allCorrectThisCheck = false; stageFeedback.push(`<strong>Câu ${i+1}:</strong> Lỗi API.`); recordResult(false, `Bài 3.A Q${i+1}`, userAnswer, `Lỗi API: ${e.message}`); getEl(`rcA_input_${q.id}`).style.borderColor = 'orange';}
+             }
+             showFeedback(allCorrectThisCheck, stageFeedback.join('<br><br>'));
+             submitButton.disabled = false; submitButton.textContent = "Kiểm Tra";
+             if(allCorrectThisCheck) {nextStageButtonEl()?.classList.remove('hidden'); submitButton.disabled = true;}
+        }
+
+        function loadReadingCompStage_B1_B() {
+            setInstructions("📖 Màn 3.B: Đọc Hiểu 课文(一). Điền vào chỗ trống dựa vào bài đọc và từ khóa.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+            const questionsB = readingCompData_B1_B.questions.concat(readingCompData_B1_B.subQuestionsLearningPlan);
+            if(!gameArea.dataset.questionsCounted_rcB) { totalQuestionsInGame += questionsB.length; gameArea.dataset.questionsCounted_rcB = 'true'; }
+
+            let formattedPassage = readingCompData_B1_B.passage.split('\n').map(line => {
+                if (line.startsWith("张小薇:")) return `<p class="dialogue-line"><strong class="speaker speaker-zhang">张小薇:</strong><span>${line.substring("张小薇:".length)}</span></p>`;
+                if (line.startsWith("朴智慧:")) return `<p class="dialogue-line"><strong class="speaker speaker-pu">朴智慧:</strong><span>${line.substring("朴智慧:".length)}</span></p>`;
+                if (line.startsWith("山下和也:")) return `<p class="dialogue-line"><strong class="speaker speaker-shanxia">山下和也:</strong><span>${line.substring("山下和也:".length)}</span></p>`;
+                if (line.startsWith("冯尚德:")) return `<p class="dialogue-line"><strong class="speaker speaker-feng">冯尚德:</strong><span>${line.substring("冯尚德:".length)}</span></p>`;
+                if (line.startsWith("陈新阳:")) return `<p class="dialogue-line"><strong class="speaker speaker-chen">陈新阳:</strong><span>${line.substring("陈新阳:".length)}</span></p>`;
+                if (line.startsWith("(")) return `<p class="reading-narrative">${line}</p>`;
+                return `<p class="dialogue-line">${line}</p>`;
+            }).join('');
+
+
+            let questionsHTML = `<div class="reading-passage-container"><h4>课文(一)</h4>${formattedPassage}</div>`;
+
+            questionsHTML += questionsB.map((q, index) => `
+                <div class="reading-question">
+                    <label for="rcB_input_${q.id}">
+                        ${index + 1}. ${q.promptBefore}
+                        <input type="text" id="rcB_input_${q.id}" placeholder="Điền vào đây..." style="width:50%;">
+                        ${q.promptAfter || ''}
+                    </label>
+                </div>
+            `).join('');
+            gameArea.innerHTML = `<h3 class="stage-title">${readingCompData_B1_B.title}</h3>${questionsHTML}<button id="check-rcB">Kiểm Tra</button>`;
+            getEl('check-rcB').addEventListener('click', checkAllReadingComp_B1_B);
+        }
+        async function checkAllReadingComp_B1_B() {
+             const submitButton = getEl('check-rcB'); submitButton.disabled = true; submitButton.textContent = "AI đang kiểm tra..."; clearFeedback();
+             let allCorrectThisCheck = true; let stageFeedback = [];
+             const questionsB = readingCompData_B1_B.questions.concat(readingCompData_B1_B.subQuestionsLearningPlan);
+
+             for (let i = 0; i < questionsB.length; i++) {
+                 const q = questionsB[i];
+                 const userAnswer = getEl(`rcB_input_${q.id}`).value.trim();
+                 if(!userAnswer) { allCorrectThisCheck = false; stageFeedback.push(`Câu ${i+1}: Chưa điền.`); recordResult(false, `Bài 3.B Q${i+1}`, "Chưa nhập", "Chưa điền"); getEl(`rcB_input_${q.id}`).style.borderColor = 'red'; continue; }
+                 const questionText = `${q.promptBefore} [TRẢ LỜI CỦA HỌC SINH] ${q.promptAfter || ''}`;
+                 const keywordsForAI = q.promptBefore.match(/\(([^)]+)\)/) ? q.promptBefore.match(/\(([^)]+)\)/)[1] : "Không có";
+
+                 const prompt = `Bạn là giáo viên tiếng Trung. Dựa vào đoạn văn 课文(一): "${readingCompData_B1_B.passage}".\nYêu cầu: Hoàn thành câu sau "${q.promptBefore.replace(/\([^)]+\)/g, '______')}${q.promptAfter || ''}" dựa vào nội dung bài đọc và sử dụng các từ khóa gợi ý: ${keywordsForAI}.\nHọc sinh điền vào chỗ trống là: "${userAnswer}".\nPhần điền của học sinh có đúng và phù hợp không? Trả lời THEO ĐÚNG ĐỊNH DẠNG: "Đánh giá: [Đúng/Sai]\nNhận xét: [Giải thích NGẮN GỌN, nếu sai gợi ý sửa]".`;
+                 try {
+                     const aiResult = await callAI(prompt);
+                     recordResult(aiResult.isCorrect, `Bài 3.B Q${i+1}`, userAnswer, aiResult.isCorrect ? "" : aiResult.explanation);
+                     if(!aiResult.isCorrect) allCorrectThisCheck = false;
+                     getEl(`rcB_input_${q.id}`).style.borderColor = aiResult.isCorrect ? 'green' : 'red';
+                     stageFeedback.push(`<strong>Câu ${i+1}:</strong> ${aiResult.explanation.replace(/\n/g, '<br>')}`);
+                 } catch (e) { allCorrectThisCheck = false; stageFeedback.push(`<strong>Câu ${i+1}:</strong> Lỗi API.`); recordResult(false, `Bài 3.B Q${i+1}`, userAnswer, `Lỗi API: ${e.message}`); getEl(`rcB_input_${q.id}`).style.borderColor = 'orange';}
+             }
+             showFeedback(allCorrectThisCheck, stageFeedback.join('<br><br>'));
+             submitButton.disabled = false; submitButton.textContent = "Kiểm Tra";
+             if(allCorrectThisCheck) {nextStageButtonEl()?.classList.remove('hidden'); submitButton.disabled = true;}
+        }
+
+        function loadReadingCompStage_B1_C() {
+            setInstructions("📖 Màn 3.C: Đọc Hiểu 短文(一). Đọc đoạn văn và trả lời câu hỏi.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+            if(!gameArea.dataset.questionsCounted_rcC) { totalQuestionsInGame += readingCompData_B1_C.questions.length; gameArea.dataset.questionsCounted_rcC = 'true'; }
+
+            let questionsHTML = `<div class="reading-passage-container"><h4>短文(一)</h4><p style="font-style:italic; color:grey;">(Nội dung bài đọc)</p>${readingCompData_B1_C.passage.replace(/\n/g, '<br>')}</div>`;
+            questionsHTML += readingCompData_B1_C.questions.map((q, index) => `
+                <div class="reading-question">
+                    <label for="rcC_input_${q.id}">${index + 1}. ${q.text}</label>
+                    <textarea id="rcC_input_${q.id}" rows="3"></textarea>
+                </div>
+            `).join('');
+            gameArea.innerHTML = `<h3 class="stage-title">${readingCompData_B1_C.title}</h3>${questionsHTML}<button id="check-rcC">Kiểm Tra</button>`;
+            getEl('check-rcC').addEventListener('click', checkAllReadingComp_B1_C);
+        }
+        async function checkAllReadingComp_B1_C() {
+             const submitButton = getEl('check-rcC'); submitButton.disabled = true; submitButton.textContent = "AI đang kiểm tra..."; clearFeedback();
+             let allCorrectThisCheck = true; let stageFeedback = [];
+             for (let i = 0; i < readingCompData_B1_C.questions.length; i++) {
+                 const q = readingCompData_B1_C.questions[i];
+                 const userAnswer = getEl(`rcC_input_${q.id}`).value.trim();
+                 if(!userAnswer) { allCorrectThisCheck = false; stageFeedback.push(`Câu ${i+1}: Chưa trả lời.`); recordResult(false, `Bài 3.C Q${i+1}`, "Chưa nhập", "Chưa trả lời"); getEl(`rcC_input_${q.id}`).style.borderColor = 'red'; continue; }
+                 const prompt = `Bạn là giáo viên tiếng Trung. Dựa vào đoạn văn 短文(一): "${readingCompData_B1_C.passage}".\nCâu hỏi là: "${q.text}". Yêu cầu học sinh trả lời bằng tiếng Trung và sử dụng các từ khóa gợi ý: ${q.keywords.join(', ')}.\nHọc sinh trả lời: "${userAnswer}".\nCâu trả lời có đúng, dựa trên nội dung đoạn văn và có sử dụng đúng các từ khóa được yêu cầu không? Trả lời THEO ĐÚNG ĐỊNH DẠNG: "Đánh giá: [Đúng/Sai]\nNhận xét: [Giải thích NGẮN GỌN, nếu sai gợi ý sửa]".`;
+                 try {
+                     const aiResult = await callAI(prompt);
+                     recordResult(aiResult.isCorrect, `Bài 3.C Q${i+1}`, userAnswer, aiResult.isCorrect ? "" : aiResult.explanation);
+                     if(!aiResult.isCorrect) allCorrectThisCheck = false;
+                     getEl(`rcC_input_${q.id}`).style.borderColor = aiResult.isCorrect ? 'green' : 'red';
+                     stageFeedback.push(`<strong>Câu ${i+1}:</strong> ${aiResult.explanation.replace(/\n/g, '<br>')}`);
+                 } catch (e) { allCorrectThisCheck = false; stageFeedback.push(`<strong>Câu ${i+1}:</strong> Lỗi API.`); recordResult(false, `Bài 3.C Q${i+1}`, userAnswer, `Lỗi API: ${e.message}`); getEl(`rcC_input_${q.id}`).style.borderColor = 'orange';}
+             }
+             showFeedback(allCorrectThisCheck, stageFeedback.join('<br><br>'));
+             submitButton.disabled = false; submitButton.textContent = "Kiểm Tra";
+             if(allCorrectThisCheck) {nextStageButtonEl()?.classList.remove('hidden'); submitButton.disabled = true;}
+        }
+
+        function loadSentenceCreationStage_B1() {
+            setInstructions("💬 Màn 4.1: Đặt Câu. Hãy đặt một câu tiếng Trung hoàn chỉnh sử dụng từ cho sẵn.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.remove('hidden');
+            currentSentenceCreationWordIndex_B1 = 0;
+            displayCurrentSCWord_B1();
+        }
+        function displayCurrentSCWord_B1() {
+            const gameArea = gameAreaEl();
+            if (sentenceCreationWords_B1 && currentSentenceCreationWordIndex_B1 < sentenceCreationWords_B1.length) {
+                currentTargetWordForSC_B1 = sentenceCreationWords_B1[currentSentenceCreationWordIndex_B1];
+                gameArea.innerHTML = ` <h3 class="stage-title">Bài 4.1: Đặt Câu (${currentSentenceCreationWordIndex_B1 + 1}/${sentenceCreationWords_B1.length})</h3> <div id="sc-current-word-area"> <p><strong>Hãy đặt câu với từ:</strong></p> <span id="sc-current-word-hanzi">${currentTargetWordForSC_B1.hanzi}</span> <span id="sc-current-word-pinyin">(${currentTargetWordForSC_B1.pinyin})</span> <span id="sc-current-word-meaning">${currentTargetWordForSC_B1.meaning}</span> </div> <textarea id="sc-sentence-input" rows="4" placeholder="Viết câu của bạn vào đây..."></textarea> <button id="submit-sc-sentence-b1">Kiểm Tra Câu</button> `;
+                getEl('submit-sc-sentence-b1').addEventListener('click', handleSubmitSCCurrentSentence_B1);
+                clearFeedback(); clearHint(); nextStageButtonEl()?.classList.add('hidden');
+            } else {
+                console.log("Hoàn thành Màn 4.1 Đặt Câu.");
+                loadNextStage();
+            }
+        }
+        async function handleSubmitSCCurrentSentence_B1() {
+            const sentenceInput = getEl('sc-sentence-input'); const sentence = sentenceInput ? sentenceInput.value.trim() : '';
+            if (!currentTargetWordForSC_B1) { showFeedback(false, "Lỗi: Không có từ mục tiêu."); return; }
+            if (!sentence) { showFeedback(false, "Bạn chưa nhập câu!"); return; }
+            const submitButton = getEl('submit-sc-sentence-b1'); submitButton.disabled = true; submitButton.textContent = "AI đang chấm điểm..."; clearFeedback();
+            const targetWordInfo = `${currentTargetWordForSC_B1.hanzi} (${currentTargetWordForSC_B1.pinyin}): ${currentTargetWordForSC_B1.meaning}`;
+            // UPDATED PROMPT for Sentence Creation
+            const prompt = `
+                Bạn là một giáo viên tiếng Trung.
+                Học sinh được yêu cầu đặt một câu hoàn chỉnh bằng tiếng Trung sử dụng từ sau: "${targetWordInfo}".
+                Câu học sinh đặt là: "${sentence}".
+
+                Hãy đánh giá câu của học sinh dựa trên các tiêu chí CHÍNH:
+                1.  **Sử dụng từ khóa:** Câu có sử dụng đúng từ khóa "${currentTargetWordForSC_B1.hanzi}" không?
+                2.  **Ngữ pháp:** Câu có đúng ngữ pháp tiếng Trung không?
+                3.  **Logic và Ngữ nghĩa:** Câu có logic, ý nghĩa rõ ràng và phù hợp không?
+                4.  **Độ tự nhiên:** Câu có nghe tự nhiên như người bản xứ nói không?
+                Quan trọng: KHÔNG tập trung vào việc có theo một "câu gốc" nào không, vì đây là đặt câu tự do với từ cho sẵn.
+
+                Trả lời THEO ĐÚNG ĐỊNH DẠNG sau:
+                Đánh giá: [Đúng/Sai]
+                Nhận xét: [Nếu Sai, giải thích NGẮN GỌN lỗi sai chính (ví dụ: chưa dùng từ khóa, sai ngữ pháp, không tự nhiên) và đưa ra một gợi ý cải thiện câu NGẮN GỌN. Nếu Đúng, ghi "Câu tốt, sử dụng đúng từ và tự nhiên." hoặc khen tương tự.]
+            `;
+            try {
+                const aiResult = await callAI(prompt);
+                const currentWordKey = `sc_b1_${currentTargetWordForSC_B1.hanzi.replace(/\s/g, '_')}`;
+                if (!gameAreaEl().dataset[currentWordKey]) {
+                     totalQuestionsInGame++;
+                     gameAreaEl().dataset[currentWordKey] = 'counted';
+                }
+                recordResult(aiResult.isCorrect, `Bài 4.1 (Từ: ${currentTargetWordForSC_B1.hanzi})`, sentence, aiResult.isCorrect ? "" : aiResult.explanation);
+                showFeedback(aiResult.isCorrect, aiResult.explanation.replace(/\n/g, '<br>'));
+                if (aiResult.isCorrect) { currentSentenceCreationWordIndex_B1++; setTimeout(displayCurrentSCWord_B1, 2000); }
+                else { submitButton.disabled = false; submitButton.textContent = "Kiểm Tra Câu"; }
+            } catch (error) { showFeedback(false, `Lỗi API: ${error.message}`); submitButton.disabled = false; submitButton.textContent = "Kiểm Tra Câu"; }
+        }
+
+        function loadParagraphWritingStage_B1() {
+            setInstructions("✍️ Màn 5.1: Viết Đoạn Văn. Hãy viết một bài tự giới thiệu theo gợi ý.");
+            const gameArea = gameAreaEl();
+            hintButtonEl()?.classList.add('hidden');
+            if(!gameArea.dataset.questionsCounted_pw_b1) {totalQuestionsInGame++; gameArea.dataset.questionsCounted_pw_b1 = 'true';}
+
+            gameArea.innerHTML = ` <h3 class="stage-title">Bài 5.1: ${paragraphWritingData_B1.title}</h3> <div id="paragraph-writing-prompt"> <p>${paragraphWritingData_B1.instructions.replace(/\n/g, '<br>')}</p> <h4>Cấu trúc gợi ý:</h4> <p>${paragraphWritingData_B1.structureHint.replace(/\n/g, '<br>')}</p> <h4>Từ vựng có thể sử dụng:</h4> <p>${paragraphWritingData_B1.vocabHint.replace(/\n/g, '<br>')}</p> </div> <textarea id="paragraph-input" placeholder="Viết đoạn văn của bạn vào đây (khoảng 100-150 chữ)..."></textarea> <div id="char-count">0 chữ</div> <button id="check-paragraph-writing-b1">Kiểm Tra Đoạn Văn</button> `;
+            const paragraphInputEl = getEl('paragraph-input'); const charCountEl = getEl('char-count');
+            paragraphInputEl.addEventListener('input', () => { const charLength = paragraphInputEl.value.length; charCountEl.textContent = `${charLength} chữ`; if (charLength > 170 || charLength < 80 && charLength > 0) { charCountEl.style.color = 'red'; } else { charCountEl.style.color = '#6c757d'; } });
+            getEl('check-paragraph-writing-b1').addEventListener('click', checkParagraphWriting_B1);
+        }
+        async function checkParagraphWriting_B1() {
+            const paragraphInput = getEl('paragraph-input').value.trim();
+            if (paragraphInput.length < 80) { showFeedback(false, "Đoạn văn của bạn hơi ngắn, hãy viết thêm nhé (ít nhất 80 chữ)."); return; }
+            const submitButton = getEl('check-paragraph-writing-b1'); submitButton.disabled = true; submitButton.textContent = "AI đang kiểm tra..."; clearFeedback();
+            const prompt = `Bạn là giáo viên tiếng Trung. Đánh giá đoạn văn tự giới thiệu sau của học sinh (yêu cầu khoảng 100-150 chữ bằng tiếng Trung): "${paragraphInput}". Xem xét sự mạch lạc, ngữ pháp, từ vựng (có sử dụng từ gợi ý không?), và mức độ hoàn thành yêu cầu đề bài (tên, ý nghĩa tên, chuyên ngành/môn học yêu thích, lý do, kế hoạch học tập). Trả lời THEO ĐÚNG ĐỊNH DẠNG: "Đánh giá: [Tốt/Khá/Cần cải thiện]\nNhận xét: [Nhận xét tổng quan và 2-3 gợi ý cải thiện NGẮN GỌN.]"`;
+            try {
+                const aiResult = await callAI(prompt);
+                let isPass = !aiResult.explanation.toLowerCase().includes("cần cải thiện");
+                recordResult(isPass, "Bài 5.1 Viết đoạn", paragraphInput.substring(0,50)+"...", isPass ? "" : aiResult.explanation);
+                showFeedback(isPass, aiResult.explanation.replace(/\n/g, '<br>'));
+                if (isPass) { nextStageButtonEl()?.classList.remove('hidden'); submitButton.disabled = true; }
+                else { submitButton.disabled = false; submitButton.textContent = "Kiểm Tra Đoạn Văn"; }
+            } catch (error) { showFeedback(false, `Lỗi API: ${error.message}`); submitButton.disabled = false; submitButton.textContent = "Kiểm Tra Đoạn Văn"; }
+        }
+
+        // ----- QUẢN LÝ MÀN CHƠI -----
+        function loadNextStage() { // MOVED DEFINITION UP
+            currentStage++;
+            clearFeedback();
+            clearHint();
+            const nextBtn = nextStageButtonEl();
+            const skipBtn = skipStageButtonEl();
+            const hintBtn = hintButtonEl();
+
+            if(nextBtn) nextBtn.classList.add('hidden');
+
+            if (currentStage <= gameStages.length) {
+                const stageLoaderFunction = gameStages[currentStage - 1];
+                console.log(`Loading stage ${currentStage}: ${stageLoaderFunction.name}`);
+                stageLoaderFunction();
+                if(hintBtn) hintBtn.classList.remove('hidden');
+                if(skipBtn) skipBtn.classList.remove('hidden');
+            } else {
+                console.log("All stages completed. Showing summary.");
+                showSummary();
+                if(hintBtn) hintBtn.classList.add('hidden');
+                if(skipBtn) skipBtn.classList.add('hidden');
+            }
+        }
+
+        // ----- Summary Page -----
+        function showSummary() {
+            stopTimer();
+            const currentgameAreaEl = gameAreaEl(); const currentNextStageButtonEl = nextStageButtonEl(); const currentSkipStageButtonEl = skipStageButtonEl(); const currentFeedbackSectionEl = feedbackSectionEl(); const currentHintSectionEl = getEl('hint-section');
+            if(currentgameAreaEl) currentgameAreaEl.innerHTML = '<h2>🎉 Em đã hoàn thành tất cả các thử thách! 🎉</h2>';
+            if(currentNextStageButtonEl) currentNextStageButtonEl.classList.add('hidden');
+            if(currentSkipStageButtonEl) currentSkipStageButtonEl.classList.add('hidden');
+            if(currentFeedbackSectionEl) currentFeedbackSectionEl.style.display = 'none';
+            if(currentHintSectionEl) currentHintSectionEl.style.display = 'none';
+
+            const summaryPage = summaryPageEl();
+            if (summaryPage) {
+                getEl('summary-player-name').textContent = playerName || "Học viên";
+                getEl('summary-time').textContent = gameResults.totalTime;
+                getEl('summary-correct').textContent = gameResults.correct;
+                getEl('total-questions-summary').textContent = totalQuestionsInGame;
+                getEl('summary-incorrect').textContent = gameResults.incorrect;
+                const errorsList = getEl('summary-errors');
+                errorsList.innerHTML = '';
+                if (gameResults.errors.length > 0) {
+                    gameResults.errors.forEach(err => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${err.stage}:</strong> "${err.input}" - <small>${err.issue}</small>`;
+                        errorsList.appendChild(li);
+                    });
+                } else {
+                    errorsList.innerHTML = '<li>🥳 Tuyệt vời! Không có lỗi nào được ghi nhận.</li>';
+                }
+                summaryPage.style.display = 'block';
+                if (!getEl('restart-button')) {
+                    const restartBtn = document.createElement('button');
+                    restartBtn.id = 'restart-button';
+                    restartBtn.textContent = 'Chơi lại từ đầu 🔁';
+                    restartBtn.addEventListener('click', initGame);
+                    summaryPage.appendChild(restartBtn);
+                }
+                // Dòng nhắc nhở Google Form đã được bỏ
+            } else { console.error("Summary page element not found!"); }
+        }
+
+        // ----- Initialization -----
+        // MOVED initGame and its DOMContentLoaded listener to the END
+        function initGame() {
+            console.log("Initializing game: Bài 1 - 认识新同学");
+            gameStages = [
+                loadVocabMatchingStage_B1,    loadVocabFillStage_B1_Set1,   loadVocabFillStage_B1_Set2,
+                loadSentenceCompletionStage_B1, loadReadingCompStage_B1_A,    loadReadingCompStage_B1_B,
+                loadReadingCompStage_B1_C,    loadSentenceCreationStage_B1, loadParagraphWritingStage_B1
+            ];
+            currentStage = 0; totalQuestionsInGame = 0;
+            gameResults = { correct: 0, incorrect: 0, errors: [], totalTime: '00:00' };
+            playerName = "";
+            if (timerInterval) clearInterval(timerInterval); timerInterval = null;
+            const currentTimerEl = timerEl(); if(currentTimerEl) currentTimerEl.textContent = '00:00';
+            const currentgameContainerEl = gameContainerEl(); const currentsummaryPageEl = summaryPageEl(); const currentgameAreaEl = gameAreaEl(); const currentNextStageButtonEl = nextStageButtonEl(); const currentSkipStageButtonEl = skipStageButtonEl(); const currentInstructionsEl = instructionsEl();
+
+            if(currentgameContainerEl) currentgameContainerEl.classList.remove('hidden');
+            if(currentsummaryPageEl) currentsummaryPageEl.style.display = 'none';
+            if(currentgameAreaEl) { currentgameAreaEl.innerHTML = ''; delete currentgameAreaEl.dataset.questionsCounted_sc_b1; delete currentgameAreaEl.dataset.questionsCounted_rcA; delete currentgameAreaEl.dataset.questionsCounted_rcB; delete currentgameAreaEl.dataset.questionsCounted_rcC; delete currentgameAreaEl.dataset.questionsCounted_pw_b1; }
+            clearFeedback(); clearHint();
+
+            if(currentNextStageButtonEl) { currentNextStageButtonEl.classList.add('hidden'); if (!currentNextStageButtonEl.dataset.listenerAttached) { currentNextStageButtonEl.addEventListener('click', loadNextStage); currentNextStageButtonEl.dataset.listenerAttached = 'true';}}
+            if(currentSkipStageButtonEl) { currentSkipStageButtonEl.classList.remove('hidden'); if (!currentSkipStageButtonEl.dataset.listenerAttached) { currentSkipStageButtonEl.addEventListener('click', () => { console.log(`Skipping stage ${currentStage}`); loadNextStage(); }); currentSkipStageButtonEl.dataset.listenerAttached = 'true'; } }
+
+            if (currentInstructionsEl) setInstructions("👋 Chào bạn! Vui lòng nhập tên để bắt đầu bài học \"认识新同学\".");
+            if (currentgameAreaEl) {
+                currentgameAreaEl.innerHTML = ` <div id="player-info" style="margin-bottom: 15px; padding: 20px; background-color: #e0f7fa; border-radius: 8px;"> <label for="player-name" style="display: block; margin-bottom: 8px; font-weight: bold;">Tên của bạn:</label> <input type="text" id="player-name" placeholder="Nhập tên của bạn..." required style="width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px;"> <button id="start-game-button" style="padding: 10px 20px;">Bắt đầu!</button> </div> `;
+                const startButton = getEl('start-game-button'); const playerNameInput = getEl('player-name');
+                if (startButton && playerNameInput) {
+                    playerNameInput.addEventListener('keypress', function(event) { if (event.key === 'Enter') { event.preventDefault(); startButton.click(); } });
+                    startButton.addEventListener('click', () => {
+                        const name = playerNameInput.value.trim();
+                        if (!name) { alert("Vui lòng nhập tên của bạn!"); return; }
+                        playerName = name; console.log("Player Name:", playerName);
+                        startTimer();
+                        loadNextStage();
+                    });
+                }
+            }
+            const currentHintButtonEl = hintButtonEl();
+            if (currentHintButtonEl && !currentHintButtonEl.dataset.listenerAttached) { currentHintButtonEl.addEventListener('click', showHint); currentHintButtonEl.dataset.listenerAttached = 'true'; }
+            else if (currentHintButtonEl) { currentHintButtonEl.classList.add('hidden'); currentHintButtonEl.disabled = false; }
+        }
+
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
