@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu Bài tập Tương tác: Thuyết trình về Ăn uống</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e74c3c; /* Red */
+            --secondary-color: #27ae60; /* Green */
+            --bg-color: #f5f7f9;
+            --text-dark: #34495e;
+            --text-light: #95a5a6;
+            --border-color: #dfe4ea;
+            --font-chinese: 'Noto Sans SC', sans-serif;
+            --font-vietnamese: 'Be Vietnam Pro', sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: var(--font-vietnamese); background-color: var(--bg-color); padding: 30px; color: var(--text-dark); line-height: 1.6; }
+        .main-layout { display: flex; gap: 30px; max-width: 1400px; margin: auto; }
+        .worksheet-container {
+            flex: 2; min-width: 600px; background-color: #ffffff;
+            padding: 40px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        .helper-box {
+            flex: 1; min-width: 300px; background-color: #ffffff;
+            padding: 30px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: sticky; top: 30px; align-self: flex-start; max-height: 90vh; overflow-y: auto;
+        }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--primary-color); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 10px;}
+        .header-title h1 { font-family: var(--font-chinese); color: var(--primary-color); margin: 0; font-size: 2.2em; }
+        .pinyin { display: none; font-size: 0.8em; font-weight: 400; color: var(--text-light); margin-left: 10px; font-style: italic; }
+        .pinyin-visible .pinyin { display: inline-block; }
+        .pinyin-visible .pinyin-block { display: block; }
+        .controls { display: flex; align-items: center; gap: 15px; }
+        .controls span { font-weight: 600; font-size: 1.1em; }
+        .pinyin-toggle { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .pinyin-toggle input { display: none; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 28px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary-color); }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        .form-section { margin-bottom: 25px; }
+        .form-section h3 { font-family: var(--font-chinese); font-size: 1.4em; color: var(--text-dark); border-left: 4px solid var(--primary-color); padding-left: 10px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 1.1em; font-weight: 600; margin-bottom: 8px; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; font-size: 1.1em; border: 1px solid var(--border-color);
+            border-radius: 8px; font-family: var(--font-vietnamese);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+
+        .preview-panel { background-color: var(--bg-color); padding: 20px; border-radius: 12px; margin-top: 30px; }
+        .view-toggle { text-align: center; margin-bottom: 20px; }
+        .toggle-btn { background: #fff; border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: 600; }
+        .toggle-btn.active { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
+        #sentence-preview { font-size: 1.2em; line-height: 1.8; }
+        #sentence-preview .placeholder { font-weight: 700; color: var(--primary-color); }
+        #keyword-preview { display: none; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .keyword-card { background: white; border-radius: 10px; padding: 15px; border: 1px solid var(--border-color); text-align: center; }
+        .keyword-card i { font-size: 1.8em; margin-bottom: 10px; }
+        .keyword-card .title { font-family: var(--font-chinese); font-weight: 600; font-size: 1.1em; color: var(--text-light) }
+        .keyword-card .value { font-family: var(--font-chinese); font-weight: 700; font-size: 1.3em; color: var(--text-dark); line-height: 1.3; word-break: break-word; }
+
+        /* Helper Box Styles */
+        .helper-box h3 { color: var(--secondary-color); font-size: 1.5em; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; }
+        .helper-box h4 { font-size: 1.1em; color: var(--text-dark); margin: 25px 0 10px 0; }
+        .vocab-list { padding-left: 20px; margin: 0; font-size: 1.1em; }
+        .sentence-list .item { background-color: var(--bg-color); padding: 10px; border-radius: 8px; margin-bottom: 8px; }
+        .sentence-list .chinese { font-family: var(--font-chinese); font-size: 1.1em; }
+
+        @media (max-width: 1200px) { .main-layout { flex-direction: column; } .helper-box { position: static; max-height: none; } }
+    </style>
+</head>
+<body id="main-body">
+
+    <div class="main-layout">
+        <div class="worksheet-container">
+            <header class="section-header">
+                <div class="header-title">
+                    <h1>任务一：小演讲<span class="pinyin pinyin-block">Rènwù yī: Xiǎo yǎnjiǎng</span></h1>
+                </div>
+                 <div class="controls">
+                    <div class="control-group">
+                        <span>Pinyin</span>
+                        <label class="pinyin-toggle"><input type="checkbox" id="pinyin-switch"><span class="slider"></span></label>
+                    </div>
+                </div>
+            </header>
+
+            <div class="form-section">
+                <h3>(1) 你常常在哪里吃饭？为什么？<span class="pinyin pinyin-block">(Nǐ chángcháng zài nǎlǐ chīfàn? Wèishéme?)</span></h3>
+                <div class="form-group">
+                    <label for="placeInput">我常常在...</label>
+                    <input type="text" id="placeInput" placeholder="Ví dụ: 学校食堂 (xuéxiào shítáng)">
+                </div>
+                <div class="form-group">
+                    <label for="reasonInput">因为...</label>
+                    <textarea id="reasonInput" placeholder="Ví dụ: 食堂的菜又便宜又好吃，种类也很多..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                 <h3>(2) 你常常吃/做的菜有哪些？<span class="pinyin pinyin-block">(Nǐ chángcháng chī/zuò de cài yǒu nǎxiē?)</span></h3>
+                 <div class="form-group">
+                    <label for="dishesInput">我常吃/做的菜有...</label>
+                    <textarea id="dishesInput" placeholder="Ví dụ: 西红柿炒鸡蛋、红烧牛肉、还有家乡的咖喱鸡..."></textarea>
+                </div>
+            </div>
+
+             <div class="form-section">
+                 <h3>(3) 中国菜和你的家乡菜有什么不一样？<span class="pinyin pinyin-block">(Zhongguó cài hé nǐ de jiāxiāng cài yǒu shé me bù yīyàng?)</span></h3>
+                 <div class="form-group">
+                    <label for="hometownCuisineInput">我的家乡菜是...</label>
+                    <input type="text" id="hometownCuisineInput" placeholder="Ví dụ: 越南菜 (Yuènán cài)">
+                </div>
+                 <div class="form-group">
+                    <label for="comparisonInput">比较 (Bǐjiào)</label>
+                    <textarea id="comparisonInput" placeholder="So sánh về 材料 (cáiliào), 做法 (zuòfǎ), 味道 (wèidào)... Ví dụ: 中国菜没有我的家乡菜那么辣..."></textarea>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <div class="view-toggle">
+                    <button class="toggle-btn active" data-view="sentence">Xem Kịch bản</button>
+                    <button class="toggle-btn" data-view="keyword">Xem Keyword</button>
+                </div>
+                <div id="sentence-preview"></div>
+                <div id="keyword-preview"></div>
+            </div>
+
+        </div>
+
+        <aside class="helper-box">
+            <h3><i class="fas fa-lightbulb"></i> Gợi ý & Hỗ trợ</h3>
+            
+            <h4>有用词语<span class="pinyin">(Yǒuyòng cíyǔ)</span> - Từ vựng hữu ích</h4>
+            <ul class="vocab-list">
+                <li><b>做菜的方法:</b> 炒, 煮, 烤, 炸, 蒸, 煎...</li>
+                <li><b>菜的味道:</b> 酸, 甜, 苦, 辣, 咸, 清淡...</li>
+                <li><b>做菜的材料:</b> 土豆, 西红柿, 牛肉, 鸡肉, 鱼...</li>
+                <li><b>比较:</b> 特点, 种类, 家乡菜, 川菜, 广东菜...</li>
+            </ul>
+
+            <h4>有用句子<span class="pinyin">(Yǒuyòng jùzi)</span> - Mẫu câu hữu ích</h4>
+            <div class="sentence-list">
+                <div class="item">
+                    <div class="chinese">一是...，二是...<span class="pinyin">(Yī shì..., èr shì...)</span></div>
+                </div>
+                 <div class="item">
+                    <div class="chinese">A 比 B + [tính từ]<span class="pinyin">(A bǐ B + adj)</span></div>
+                </div>
+                 <div class="item">
+                    <div class="chinese">A 没有 B 那么 + [tính từ]<span class="pinyin">(A méiyǒu B nàme + adj)</span></div>
+                </div>
+                 <div class="item">
+                    <div class="chinese">虽然...，但是...<span class="pinyin">(Suīrán..., dànshì...)</span></div>
+                </div>
+                 <div class="item">
+                    <div class="chinese">连...都...<span class="pinyin">(Lián...dōu...)</span></div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mainBody = document.getElementById('main-body');
+    const pinyinSwitch = document.getElementById('pinyin-switch');
+    pinyinSwitch.addEventListener('change', () => {
+        mainBody.classList.toggle('pinyin-visible', pinyinSwitch.checked);
+    });
+
+    const inputs = {
+        place: document.getElementById('placeInput'),
+        reason: document.getElementById('reasonInput'),
+        dishes: document.getElementById('dishesInput'),
+        hometown: document.getElementById('hometownCuisineInput'),
+        comparison: document.getElementById('comparisonInput')
+    };
+
+    const sentencePreview = document.getElementById('sentence-preview');
+    const keywordPreview = document.getElementById('keyword-preview');
+    const viewToggleButtons = document.querySelectorAll('.toggle-btn');
+    
+    const keywordData = {
+        place: { title: "吃饭的地方", icon: "fa-map-marker-alt" },
+        reason: { title: "原因", icon: "fa-question-circle" },
+        dishes: { title: "常吃的菜", icon: "fa-utensils" },
+        hometown: { title: "家乡菜", icon: "fa-flag" },
+        comparison: { title: "比较", icon: "fa-balance-scale" }
+    };
+
+    function updatePreview() {
+        const values = {};
+        let sentenceHTML = '<p>大家好！我说一下我吃饭或者做饭的情况。</p>';
+        let keywordHTML = '';
+
+        for (const key in inputs) {
+            values[key] = inputs[key].value.trim();
+        }
+
+        // Build Sentence View
+        if (values.place) {
+            sentenceHTML += `<p>我常常在 <span class="placeholder">${values.place}</span> 吃饭。`;
+            if (values.reason) {
+                sentenceHTML += `因为 <span class="placeholder">${values.reason}</span>。</p>`;
+            } else {
+                sentenceHTML += `</p>`;
+            }
+        }
+        if (values.dishes) {
+            sentenceHTML += `<p>我常常吃或者做的菜有 <span class="placeholder">${values.dishes}</span>。</p>`;
+        }
+        if (values.hometown || values.comparison) {
+            const hometownText = values.hometown ? `我的家乡菜是 <span class="placeholder">${values.hometown}</span>。` : '';
+            const comparisonText = values.comparison ? `关于中国菜和我的家乡菜，我觉得 <span class="placeholder">${values.comparison}</span>。` : '';
+            sentenceHTML += `<p>${hometownText} ${comparisonText}</p>`;
+        }
+        sentenceHTML += '<p>我说完了，谢谢大家！</p>';
+        sentencePreview.innerHTML = sentenceHTML;
+
+        // Build Keyword View
+        for (const key in keywordData) {
+            if (values[key]) {
+                 const keyword = keywordData[key];
+                 keywordHTML += `
+                    <div class="keyword-card">
+                        <i class="fas ${keyword.icon}" style="color:${getHashColor(keyword.title)}"></i>
+                        <div class="title">${keyword.title}</div>
+                        <div class="value">${values[key]}</div>
+                    </div>
+                `;
+            }
+        }
+        keywordPreview.innerHTML = keywordHTML;
+    }
+
+    Object.values(inputs).forEach(input => {
+        input.addEventListener('input', updatePreview);
+    });
+
+    viewToggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            viewToggleButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const view = btn.dataset.view;
+            sentencePreview.style.display = view === 'sentence' ? 'block' : 'none';
+            keywordPreview.style.display = view === 'keyword' ? 'grid' : 'none';
+        });
+    });
+
+    function getHashColor(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
+        const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+        return "#" + "00000".substring(0, 6 - c.length) + c;
+    }
+
+    updatePreview(); // Initial call to populate
+});
+</script>
+</body>
+</html>
