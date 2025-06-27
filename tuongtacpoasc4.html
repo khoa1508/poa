@@ -283,6 +283,7 @@
         const steps = Array.from(document.querySelectorAll('.step'));
         let currentStepIndex = 0;
         
+        // --- CORRECTED BOOK DATABASE ---
         const bookDatabase = {
             "马可·波罗游记": {
                 callNumber: "K919/M141X",
@@ -292,12 +293,12 @@
             "汉语教程": {
                 callNumber: "H195/H123J",
                 category: "H",
-                imgSrc: "https://m.media-amazon.com/images/I/71lpZn5qGYL._UF1000,1000_QL80_.jpg"
+                imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDtALIh98_2520R5-tGQQFxLMpbIOnPlX91g&s"
             },
             "世界历史": {
                 callNumber: "K100/S512J",
                 category: "K",
-                imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKaiG3JZ4BufFEKDOft0jD6ubkdPyXOEBB3w&s"
+                imgSrc: "https://m.media-amazon.com/images/I/71lpZn5qGYL._UF1000,1000_QL80_.jpg"
             }
         };
         let currentBook = null;
@@ -364,15 +365,21 @@
             
             const distractors = Object.keys(bookDatabase).filter(title => title !== currentBook.title);
             
-            const d1Img = document.getElementById('distractor-book-1-img');
-            d1Img.src = bookDatabase[distractors[0]].imgSrc;
-            d1Img.onerror = function() { this.src='https://placehold.co/200x280/cccccc/ffffff?text=Image+Not+Found' };
-            document.getElementById('distractor-book-1-title').textContent = `《${distractors[0]}》`;
+            // Assign first distractor
+            const d1Title = distractors[0];
+            const d1Data = bookDatabase[d1Title];
+            const d1ImgEl = document.getElementById('distractor-book-1-img');
+            d1ImgEl.src = d1Data.imgSrc;
+            d1ImgEl.onerror = function() { this.src='https://placehold.co/200x280/cccccc/ffffff?text=Image+Not+Found' };
+            document.getElementById('distractor-book-1-title').textContent = `《${d1Title}》`;
             
-            const d2Img = document.getElementById('distractor-book-2-img');
-            d2Img.src = bookDatabase[distractors[1]].imgSrc;
-            d2Img.onerror = function() { this.src='https://placehold.co/200x280/cccccc/ffffff?text=Image+Not+Found' };
-            document.getElementById('distractor-book-2-title').textContent = `《${distractors[1]}》`;
+            // Assign second distractor
+            const d2Title = distractors[1];
+            const d2Data = bookDatabase[d2Title];
+            const d2ImgEl = document.getElementById('distractor-book-2-img');
+            d2ImgEl.src = d2Data.imgSrc;
+            d2ImgEl.onerror = function() { this.src='https://placehold.co/200x280/cccccc/ffffff?text=Image+Not+Found' };
+            document.getElementById('distractor-book-2-title').textContent = `《${d2Title}》`;
 
             document.getElementById('borrowed-book-title').textContent = `《${currentBook.title}》`;
             document.getElementById('book-on-scanner').src = currentBook.imgSrc;
