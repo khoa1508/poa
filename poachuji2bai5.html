@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mô phỏng Thanh toán WeChat Pay</title>
+    <title>微信支付模拟</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -87,6 +87,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 100;
         }
         .modal-content {
             background-color: white;
@@ -126,31 +127,31 @@
             <div id="me-screen" class="screen-content">
                 <div class="wechat-header">
                     <span></span>
-                    <span>Tôi</span>
+                    <span>我</span>
                     <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 </div>
                 <div class="p-4 bg-white flex items-center mb-2">
-                    <img src="https://placehold.co/64x64/EFEFEF/AAAAAA?text=User" alt="Avatar" class="w-16 h-16 rounded-lg mr-4">
+                    <img src="https://placehold.co/64x64/EFEFEF/AAAAAA?text=头像" alt="Avatar" class="w-16 h-16 rounded-lg mr-4">
                     <div>
-                        <p class="font-bold text-xl">Người dùng</p>
-                        <p class="text-gray-500">ID WeChat: user123</p>
+                        <p class="font-bold text-xl">用户</p>
+                        <p class="text-gray-500">微信号: user123</p>
                     </div>
                 </div>
                 <div class="wechat-list-item" onclick="navigateTo('wallet')">
                     <svg class="icon text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                    <span>Dịch vụ</span>
+                    <span>服务</span>
                 </div>
                 <div class="wechat-list-item">
                     <svg class="icon text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
-                    <span>Yêu thích</span>
+                    <span>收藏</span>
                 </div>
                 <div class="wechat-list-item">
                     <svg class="icon text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-9.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-9.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20M8 12.5l4 2.222 4-2.222"></path></svg>
-                    <span>Bộ sưu tập</span>
+                    <span>卡包</span>
                 </div>
                 <div class="wechat-list-item mt-2">
                     <svg class="icon text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span>Cài đặt</span>
+                    <span>设置</span>
                 </div>
             </div>
 
@@ -158,30 +159,30 @@
             <div id="wallet-screen" class="hidden screen-content bg-[#07c160]">
                 <div class="wechat-header bg-[#07c160] text-white border-b-0">
                     <svg onclick="navigateTo('me')" class="icon cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    <span>Ví</span>
+                    <span>钱包</span>
                     <span></span>
                 </div>
                 <div class="p-6 text-white">
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div onclick="tryPay()" class="bg-white/20 p-4 rounded-lg cursor-pointer">
                             <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Quét mã</span>
+                            <span>扫一扫</span>
                         </div>
                         <div onclick="tryPay()" class="bg-white/20 p-4 rounded-lg cursor-pointer">
                             <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M128 128v192h192V128H128zm64 64h64v64h-64v-64zM128 704v192h192V704H128zm64 64h64v64h-64v-64zm512-576v192h192V128H704zm64 64h64v64h-64v-64zM288 416a128 128 0 1 0 256 0 128 128 0 1 0-256 0zm64 0a64 64 0 1 1 128 0 64 64 0 1 1-128 0zM448 704a128 128 0 1 0 256 0 128 128 0 1 0-256 0zm64 0a64 64 0 1 1 128 0 64 64 0 1 1-128 0zM704 416h192v192H704V416zm64 64h64v64h-64v-64zM704 704v192h192V704H704zm64 64h64v64h-64v-64zM128 416h192v192H128V416zm64 64h64v64h-64v-64z"/></svg>
-                            <span>Mã thanh toán</span>
+                            <span>付款码</span>
                         </div>
                     </div>
                 </div>
                 <div class="bg-white m-4 p-4 rounded-lg">
                     <div class="text-center">
-                        <p class="text-gray-500">Số dư</p>
+                        <p class="text-gray-500">余额</p>
                         <p class="text-3xl font-bold my-2">¥ <span id="balance">5,288.00</span></p>
                     </div>
                     <div class="mt-4 hidden" id="card-info-display">
                         <!-- Card info will be displayed here -->
                     </div>
-                    <button id="add-card-btn" onclick="navigateTo('addCard')" class="wechat-green-button mt-4">Liên kết thẻ ngân hàng</button>
+                    <button id="add-card-btn" onclick="navigateTo('addCard')" class="wechat-green-button mt-4">添加银行卡</button>
                 </div>
             </div>
 
@@ -189,25 +190,25 @@
             <div id="add-card-screen" class="hidden screen-content">
                 <div class="wechat-header">
                     <svg onclick="navigateTo('wallet')" class="icon cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    <span>Thêm thẻ ngân hàng</span>
+                    <span>添加银行卡</span>
                     <span></span>
                 </div>
                 <div class="p-4">
-                    <p class="text-gray-500 mb-4">Vui lòng liên kết thẻ ngân hàng của bạn để thanh toán.</p>
+                    <p class="text-gray-500 mb-4">请绑定您的银行卡以便付款。</p>
                     <form id="card-form" onsubmit="addCard(event)">
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700">Tên chủ thẻ</label>
-                            <input type="text" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="NGUYEN VAN A">
+                            <label class="block text-sm font-medium text-gray-700">持卡人姓名</label>
+                            <input type="text" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="张三">
                         </div>
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700">Số thẻ</label>
-                            <input type="text" required pattern="\d{16}" title="Số thẻ phải có 16 chữ số" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="**** **** **** 1234">
+                            <label class="block text-sm font-medium text-gray-700">卡号</label>
+                            <input type="text" required pattern="\d{16}" title="卡号必须是16位数字" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="**** **** **** 1234">
                         </div>
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700">Số điện thoại</label>
-                            <input type="tel" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="Số điện thoại đã đăng ký với ngân hàng">
+                            <label class="block text-sm font-medium text-gray-700">手机号码</label>
+                            <input type="tel" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="银行预留手机号">
                         </div>
-                        <button type="submit" class="wechat-green-button mt-4">Liên kết ngay</button>
+                        <button type="submit" class="wechat-green-button mt-4">下一步</button>
                     </form>
                 </div>
             </div>
@@ -216,17 +217,17 @@
             <div id="payment-screen" class="hidden screen-content bg-gray-800">
                  <div class="wechat-header bg-gray-800 text-white border-b-0">
                     <svg onclick="navigateTo('wallet')" class="icon cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    <span>Thanh toán</span>
+                    <span>支付</span>
                     <span></span>
                 </div>
                 <div class="flex flex-col items-center justify-center flex-grow p-6">
                     <div class="bg-white p-6 rounded-lg text-center">
-                        <p class="font-semibold">Cửa hàng tiện lợi</p>
+                        <p class="font-semibold">便利店</p>
                         <p class="text-4xl font-bold my-4">¥ 58.00</p>
                         <img src="https://placehold.co/200x200/000000/FFFFFF?text=QR+CODE" alt="QR Code" class="mx-auto">
-                        <p class="text-gray-500 mt-4 text-sm">Quét mã để thanh toán</p>
+                        <p class="text-gray-500 mt-4 text-sm">扫描二维码付款</p>
                     </div>
-                    <button onclick="processPayment()" class="wechat-green-button mt-8">Xác nhận thanh toán</button>
+                    <button onclick="processPayment()" class="wechat-green-button mt-8">确认支付</button>
                 </div>
             </div>
 
@@ -234,9 +235,9 @@
             <div id="success-screen" class="hidden screen-content bg-white">
                 <div class="flex flex-col items-center justify-center h-full text-center p-6">
                     <svg class="w-24 h-24 text-green-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h2 class="text-2xl font-bold mb-2">Thanh toán thành công!</h2>
-                    <p class="text-gray-600 mb-6">Số tiền ¥58.00 đã được thanh toán.</p>
-                    <button onclick="navigateTo('wallet')" class="wechat-green-button">Hoàn thành</button>
+                    <h2 class="text-2xl font-bold mb-2">支付成功!</h2>
+                    <p class="text-gray-600 mb-6">已支付 ¥58.00</p>
+                    <button onclick="navigateTo('wallet')" class="wechat-green-button">完成</button>
                 </div>
             </div>
 
@@ -244,7 +245,7 @@
             <div id="alert-modal" class="hidden modal-overlay">
                 <div class="modal-content">
                     <p id="alert-message" class="mb-4"></p>
-                    <button onclick="closeModal()" class="wechat-green-button">OK</button>
+                    <button onclick="closeModal()" class="wechat-green-button">好的</button>
                 </div>
             </div>
 
@@ -315,7 +316,7 @@
             };
 
             updateUI();
-            showAlert('Liên kết thẻ thành công!');
+            showAlert('绑卡成功！');
             setTimeout(() => {
                 closeModal();
                 navigateTo('wallet');
@@ -326,7 +327,7 @@
             if (state.cardLinked) {
                 navigateTo('payment');
             } else {
-                showAlert('Vui lòng liên kết thẻ ngân hàng trước khi thanh toán.');
+                showAlert('请先绑定银行卡再进行支付。');
             }
         }
 
@@ -337,7 +338,7 @@
                 updateUI();
                 navigateTo('success');
             } else {
-                showAlert('Số dư không đủ để thực hiện giao dịch.');
+                showAlert('余额不足，无法完成交易。');
             }
         }
 
@@ -348,8 +349,8 @@
                 cardInfoDisplay.classList.remove('hidden');
                 cardInfoDisplay.innerHTML = `
                     <div class="bg-blue-600 text-white p-4 rounded-lg">
-                        <p class="font-bold">Ngân hàng ABC</p>
-                        <p class="text-sm">Thẻ ghi nợ</p>
+                        <p class="font-bold">ABC银行</p>
+                        <p class="text-sm">储蓄卡</p>
                         <p class="text-xl font-mono tracking-widest text-right mt-4">${state.cardInfo.number}</p>
                     </div>
                 `;
