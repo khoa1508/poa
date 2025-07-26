@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu Học Tập: Câu Chuyện Địa Danh Việt Nam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .task-card {
+            transition: all 0.3s ease;
+        }
+        .hint {
+            display: none;
+            background-color: #fffbeb;
+            border-left: 4px solid #facc15;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .location-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <!-- Header -->
+        <header class="text-center mb-8 fade-in">
+            <h1 class="text-3xl md:text-4xl font-bold text-teal-700">PHIẾU HỌC TẬP TƯƠNG TÁC</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">Bài 4: Tên gọi đều có câu chuyện (名字里边有故事)</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="space-y-12">
+
+            <!-- Phần 1: Khởi động (驱动) -->
+            <section id="prepare" class="fade-in" style="animation-delay: 0.2s;">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h2 class="text-2xl font-bold text-teal-600 mb-4">1. Khởi động: Bạn biết những nơi này không?</h2>
+                    <p class="mb-6 text-gray-700">Mỗi tên gọi đều ẩn chứa một câu chuyện thú vị. Việt Nam có rất nhiều địa danh với những cái tên đặc biệt. Hãy cùng xem qua một vài ví dụ và chuẩn bị kể câu chuyện của riêng bạn nhé!</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <img src="https://static.vinwonders.com/production/ho-hoan-kiem-2.jpg" alt="Hình ảnh Hồ Hoàn Kiếm" class="rounded-md mb-2 mx-auto location-image">
+                            <p class="font-semibold">Hồ Hoàn Kiếm (Hồ Gươm)</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <img src="https://images2.thanhnien.vn/zoom/1200_630/uploaded/hoangnam/2021_06_01/a3nuitothilangson_QKID.jpg" alt="Hình ảnh Hòn Vọng Phu" class="rounded-md mb-2 mx-auto location-image">
+                            <p class="font-semibold">Hòn Vọng Phu</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <img src="https://danangfantasticity.com/wp-content/uploads/2018/03/da-nang-thanh-pho-cua-nhung-cay-cau-07.jpg" alt="Hình ảnh Cầu Rồng" class="rounded-md mb-2 mx-auto location-image">
+                            <p class="font-semibold">Cầu Rồng - Đà Nẵng</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phần 2: Hỗ trợ (促成) -->
+            <section id="explore" class="fade-in" style="animation-delay: 0.4s;">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h2 class="text-2xl font-bold text-teal-600 mb-4">2. Hỗ trợ: Từ vựng & Mẫu câu</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Vocabulary -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800">Từ vựng cốt lõi (核心词语)</h3>
+                            <ul class="space-y-2">
+                                <li class="p-3 bg-teal-50 rounded-md"><b>特色 (tèsè):</b> đặc sắc</li>
+                                <li class="p-3 bg-gray-50 rounded-md"><b>本来 (běnlái):</b> vốn dĩ, ban đầu</li>
+                                <li class="p-3 bg-teal-50 rounded-md"><b>传说 (chuánshuō):</b> truyền thuyết, tương truyền</li>
+                                <li class="p-3 bg-gray-50 rounded-md"><b>故事 (gùshì):</b> câu chuyện</li>
+                                <li class="p-3 bg-teal-50 rounded-md"><b>保护 (bǎohù):</b> bảo vệ</li>
+                                <li class="p-3 bg-gray-50 rounded-md"><b>解释 (jiěshì):</b> giải thích</li>
+                                <li class="p-3 bg-teal-50 rounded-md"><b>形成 (xíngchéng):</b> hình thành</li>
+                                <li class="p-3 bg-gray-50 rounded-md"><b>流传 (liúchuán):</b> lưu truyền</li>
+                                <li class="p-3 bg-teal-50 rounded-md"><b>相似 (xiāngsì):</b> tương tự, giống nhau</li>
+                                <li class="p-3 bg-gray-50 rounded-md"><b>皇帝 (huángdì):</b> hoàng đế</li>
+                            </ul>
+                        </div>
+                        <!-- Sentence Patterns -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800">Mẫu câu gợi ý (参考句式)</h3>
+                            <div class="space-y-3 text-gray-700">
+                                <p>• <b>[Địa điểm] 这个名字是怎么来的呢？</b><br>(Tên gọi [Địa điểm] này có từ đâu?)</p>
+                                <p>• <b>关于这个名字，有一个很有意思的传说/故事。</b><br>(Về tên gọi này, có một truyền thuyết/câu chuyện rất thú vị.)</p>
+                                <p>• <b>它本来叫 [Tên cũ], 因为 [Lý do].</b><br>(Nó vốn tên là [Tên cũ], bởi vì [Lý do].)</p>
+                                <p>• <b>传说，[Nội dung câu chuyện]...</b><br>(Tương truyền, [Nội dung câu chuyện]...)</p>
+                                <p>• <b>后来，人们为了纪念 [Nhân vật], 就把它叫做 [Tên mới].</b><br>(Sau này, để tưởng nhớ [Nhân vật], người ta đã gọi nó là [Tên mới].)</p>
+                                <p>• <b>从此，[Tên địa danh] 这个名字就流传了下来。</b><br>(Từ đó, tên gọi [Tên địa danh] đã được lưu truyền đến ngày nay.)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phần 3: Thực hành (产出) -->
+            <section id="produce" class="fade-in" style="animation-delay: 0.6s;">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 task-card">
+                    <h2 class="text-2xl font-bold text-teal-600 mb-4">3. Thực hành: Kể câu chuyện của bạn</h2>
+                    <p class="mb-6 text-gray-700">Bây giờ, hãy chọn một địa danh Việt Nam và thử dùng những từ vựng, mẫu câu đã học để giới thiệu về câu chuyện đằng sau tên gọi của nơi đó nhé!</p>
+                    
+                    <!-- Interactive Task Area -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="location-select" class="block text-md font-medium text-gray-700 mb-1">Chọn một địa danh:</label>
+                            <select id="location-select" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500">
+                                <option value="hoankiem">Hồ Hoàn Kiếm (Hồ Gươm)</option>
+                                <option value="vongphu">Hòn Vọng Phu</option>
+                                <option value="rong">Cầu Rồng</option>
+                                <option value="benthah">Chợ Bến Thành</option>
+                            </select>
+                        </div>
+
+                        <div id="worksheet-area">
+                            <!-- Content will be dynamically inserted here by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const data = {
+            hoankiem: {
+                title: "Hồ Hoàn Kiếm (Hồ Gươm)",
+                hint: `
+                    <p><b>Câu chuyện:</b> Vua Lê Lợi sau khi dùng gươm thần đánh thắng giặc Minh, đã trả lại gươm cho Rùa Vàng trên hồ này. Tên gọi Hồ Gươm hay Hồ Hoàn Kiếm (Hồ Trả Gươm) ra đời từ đó.</p>
+                    <p class="mt-2"><b>Từ khóa gợi ý (关键词):</b></p>
+                    <ul class="list-disc list-inside mt-1 text-sm">
+                        <li>传说 (truyền thuyết)</li>
+                        <li>皇帝 (hoàng đế - vua)</li>
+                        <li>宝剑 (bǎojiàn - gươm báu)</li>
+                        <li>乌龟 (wūguī - con rùa)</li>
+                        <li>保护 (bảo vệ)</li>
+                        <li>流传 (lưu truyền)</li>
+                    </ul>
+                `
+            },
+            vongphu: {
+                title: "Hòn Vọng Phu",
+                hint: `
+                    <p><b>Câu chuyện:</b> Kể về người vợ ôm con chờ chồng đi lính trở về. Nàng chờ mãi, chờ mãi cho đến khi hóa thành đá. Tên gọi "Vọng Phu" (trông chồng) thể hiện lòng chung thủy sắt son.</p>
+                    <p class="mt-2"><b>Từ khóa gợi ý (关键词):</b></p>
+                    <ul class="list-disc list-inside mt-1 text-sm">
+                        <li>故事 (câu chuyện)</li>
+                        <li>等待 (děngdài - chờ đợi)</li>
+                        <li>丈夫 (zhàngfu - chồng)</li>
+                        <li>变成石头 (biànchéng shítou - hóa thành đá)</li>
+                        <li>形象 (xíngxiàng - hình tượng)</li>
+                        <li>从此 (cóngcǐ - từ đó)</li>
+                    </ul>
+                `
+            },
+            rong: {
+                title: "Cầu Rồng (Đà Nẵng)",
+                hint: `
+                    <p><b>Câu chuyện:</b> Đây là một câu chuyện hiện đại. Cây cầu được thiết kế theo hình dáng con rồng thời nhà Lý, biểu tượng cho sự thịnh vượng. Cầu có khả năng phun lửa và phun nước vào cuối tuần, tạo nên một cảnh tượng đặc sắc.</p>
+                    <p class="mt-2"><b>Từ khóa gợi ý (关键词):</b></p>
+                    <ul class="list-disc list-inside mt-1 text-sm">
+                        <li>特色 (đặc sắc)</li>
+                        <li>龙 (lóng - con rồng)</li>
+                        <li>设计 (shèjì - thiết kế)</li>
+                        <li>现代 (xiàndài - hiện đại)</li>
+                        <li>保护 (bảo vệ - ở đây có thể hiểu là biểu tượng bảo hộ)</li>
+                        <li>解释 (giải thích)</li>
+                    </ul>
+                `
+            },
+            benthah: {
+                title: "Chợ Bến Thành",
+                hint: `
+                    <p><b>Câu chuyện:</b> Tên gọi gắn liền với lịch sử. "Bến" là vì chợ ban đầu nằm cạnh một bến sông gần thành Gia Định. "Thành" là để chỉ khu vực gần thành. Tên gọi này giải thích vị trí ban đầu của ngôi chợ.</p>
+                    <p class="mt-2"><b>Từ khóa gợi ý (关键词):</b></p>
+                     <ul class="list-disc list-inside mt-1 text-sm">
+                        <li>本来 (vốn dĩ)</li>
+                        <li>解释 (giải thích)</li>
+                        <li>位置 (wèizhì - vị trí)</li>
+                        <li>河边 (hébiān - ven sông)</li>
+                        <li>城 (chéng - thành)</li>
+                        <li>形成 (hình thành)</li>
+                    </ul>
+                `
+            }
+        };
+
+        const locationSelect = document.getElementById('location-select');
+        const worksheetArea = document.getElementById('worksheet-area');
+
+        function renderWorksheet(locationKey) {
+            const locationData = data[locationKey];
+            worksheetArea.innerHTML = `
+                <div class="mt-6 p-4 border border-dashed border-gray-300 rounded-lg space-y-4 fade-in">
+                    <div>
+                        <label class="block text-md font-medium text-gray-700">Tên địa danh (地名):</label>
+                        <input type="text" readonly value="${locationData.title}" class="mt-1 w-full p-2 bg-gray-100 border border-gray-200 rounded-md">
+                    </div>
+                    <div>
+                        <label for="story" class="block text-md font-medium text-gray-700">Hãy viết lại câu chuyện bằng tiếng Trung:</label>
+                        <textarea id="story" rows="8" class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" placeholder="Ví dụ: 关于胡志明市的滨城市场，有一个很有意思的故事..."></textarea>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="toggleHint()" class="px-4 py-2 bg-yellow-400 text-yellow-900 font-semibold rounded-lg hover:bg-yellow-500 transition">Xem gợi ý (看提示)</button>
+                        <button onclick="saveWork()" class="px-4 py-2 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition">Lưu bài làm (保存)</button>
+                    </div>
+                    <div id="hint-box" class="p-4 mt-4 rounded-lg hint">
+                        ${locationData.hint}
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleHint() {
+            const hintBox = document.getElementById('hint-box');
+            if (hintBox.style.display === 'block') {
+                hintBox.style.display = 'none';
+            } else {
+                hintBox.style.display = 'block';
+            }
+        }
+
+        function saveWork() {
+            alert('Bài làm của bạn đã được "lưu" thành công! (Trong thực tế, cần có máy chủ để lưu dữ liệu).');
+        }
+
+        locationSelect.addEventListener('change', (event) => {
+            renderWorksheet(event.target.value);
+        });
+
+        // Initial render
+        renderWorksheet(locationSelect.value);
+
+    </script>
+</body>
+</html>
