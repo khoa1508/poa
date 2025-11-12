@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1: 动物动脑筋</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .lesson-section {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .hanzi {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #1e293b;
+        }
+        .pinyin {
+            color: #64748b;
+        }
+        .translation {
+            color: #475569;
+        }
+        .example {
+            background-color: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .answer {
+            display: none;
+            background-color: #eef2ff;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            border: 1px dashed #c7d2fe;
+        }
+        .toggle-button {
+            cursor: pointer;
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s;
+        }
+        .toggle-button:hover {
+            background-color: #2563eb;
+        }
+        .flashcard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .flashcard {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .flashcard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .card-front {
+            text-align: center;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-front .hanzi-large {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+        .card-back {
+            display: none;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        .exercise-section {
+            margin-top: 1rem;
+            background-color: #f8fafc;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+        }
+        .exercise-section h5 {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-slate-800">Bài 1: 动物动脑筋</h1>
+        <p class="text-xl text-slate-600 mt-2">Dòngwù dòng nǎojīn - Động vật động não</p>
+    </header>
+
+    <main>
+        <!-- Phần 1: Từ vựng Flashcards -->
+        <section class="lesson-section" id="vocabulary">
+            <h2 class="text-2xl font-bold mb-6 text-slate-700">I. Từ vựng (生词)</h2>
+            <div class="flashcard-container">
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">猩猩</p></div><div class="card-back"><p class="pinyin"><b>xīngxing</b> (n.) - Tinh tinh: đười ươi, tinh tinh</p><div class="example"><p class="hanzi">小猩猩很安静。</p><p class="translation">Con đười ươi nhỏ rất yên tĩnh.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "猩猩" để miêu tả một con vật trong sở thú.</p><p><b>Dịch câu:</b> Đười ươi là loài động vật rất thông minh.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">乌鸦</p></div><div class="card-back"><p class="pinyin"><b>wūyā</b> (n.) - Ô nha: con quạ</p><div class="example"><p class="hanzi">有一只乌鸦，一次，主人拿一块干面包给它。</p><p class="translation">Có một con quạ, một lần, người chủ lấy một miếng bánh mì khô cho nó.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "乌鸦" để kể câu chuyện "Quạ uống nước".</p><p><b>Dịch câu:</b> Con quạ ngậm miếng bánh mì bay đi rồi.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">大象</p></div><div class="card-back"><p class="pinyin"><b>dàxiàng</b> (n.) - Đại tượng: con voi</p><div class="example"><p class="hanzi">在动物园里，有时人们会看到大象用鼻子表演。</p><p class="translation">Ở sở thú, đôi khi mọi người sẽ thấy voi dùng vòi biểu diễn.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "大象" để miêu tả cái vòi của con voi.</p><p><b>Dịch câu:</b> Con voi dùng vòi hút nước.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">猴子</p></div><div class="card-back"><p class="pinyin"><b>hóuzi</b> (n.) - Hầu tử: con khỉ</p><div class="example"><p class="hanzi">有一只猴子，平常被人们用绳子拴在一棵树上。</p><p class="translation">Có một con khỉ, ngày thường bị người ta dùng dây thừng buộc vào một cái cây.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "猴子" để nói về việc cho khỉ ăn.</p><p><b>Dịch câu:</b> Con khỉ đó giả vờ chết để lừa bầy quạ.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">动脑筋</p></div><div class="card-back"><p class="pinyin"><b>dòng nǎojīn</b> (v.) - Động não: động não, dùng não suy nghĩ</p><div class="example"><p class="hanzi">动物也会动脑筋吗？</p><p class="translation">Động vật cũng biết động não à?</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "动脑筋" để nói về việc giải một bài toán khó.</p><p><b>Dịch câu:</b> Vấn đề này cần chúng ta động não một chút.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">葡萄</p></div><div class="card-back"><p class="pinyin"><b>pútao</b> (n.) - Bồ đào: quả nho</p><div class="example"><p class="hanzi">小猩猩偷偷地找出葡萄吃了。</p><p class="translation">Con đười ươi nhỏ lén lút tìm nho ra ăn.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "葡萄" để nói về loại hoa quả bạn thích ăn.</p><p><b>Dịch câu:</b> Chùm nho này trông thật tươi ngon.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">故意</p></div><div class="card-back"><p class="pinyin"><b>gùyì</b> (adv.) - Cố ý: cố ý, cố tình</p><div class="example"><p class="hanzi">人们故意让一只小猩猩看见。</p><p class="translation">Người ta cố tình cho một con đười ươi nhỏ nhìn thấy.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "故意" để nói về việc ai đó làm vỡ cốc có chủ ý.</p><p><b>Dịch câu:</b> Xin lỗi, tôi không cố ý làm bạn bị thương.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">同伴</p></div><div class="card-back"><p class="pinyin"><b>tóngbàn</b> (n.) - Đồng bạn: bạn đồng hành, bạn cùng hội</p><div class="example"><p class="hanzi">然后又把它的几个同伴都放出来。</p><p class="translation">Sau đó lại thả mấy người bạn đồng hành của nó ra.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "同伴" để nói về người bạn đi du lịch cùng bạn.</p><p><b>Dịch câu:</b> Anh ấy và các bạn đồng hành đã cùng nhau leo lên đỉnh núi.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">悄悄</p></div><div class="card-back"><p class="pinyin"><b>qiāoqiāo</b> (adv.) - Tiễu tiễu: lặng lẽ, nhẹ nhàng</p><div class="example"><p>Nó lặng lẽ đứng dậy.</p><p class="translation">它悄悄站起来。</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "悄悄" để miêu tả hành động rời đi mà không ai biết.</p><p><b>Dịch câu:</b> Mùa xuân đã lặng lẽ đến rồi.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">偷偷</p></div><div class="card-back"><p class="pinyin"><b>tōutōu</b> (adv.) - Thâu thâu: lén lút, bí mật</p><div class="example"><p class="hanzi">小猩猩偷偷地找出葡萄吃了。</p><p class="translation">Con đười ươi nhỏ lén lút tìm nho ra ăn.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "偷偷" để miêu tả việc ăn vụng đồ ăn vặt.</p><p><b>Dịch câu:</b> Anh ấy lén lút nhìn cô ấy một cái.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">干</p></div><div class="card-back"><p class="pinyin"><b>gān</b> (adj.) - Can: khô</p><div class="example"><p class="hanzi">主人拿一块干面包给它。</p><p class="translation">Người chủ lấy một miếng bánh mì khô cho nó.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "干" để miêu tả quần áo đã phơi khô.</p><p><b>Dịch câu:</b> Bánh mì này cứng và khô quá.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">啄</p></div><div class="card-back"><p class="pinyin"><b>zhuó</b> (v.) - Trác: mổ (chim)</p><div class="example"><p class="hanzi">乌鸦用嘴啄了一下，发现面包很硬。</p><p class="translation">Con quạ dùng mỏ mổ một cái, phát hiện bánh mì rất cứng.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "啄" để miêu tả con gà đang mổ thóc.</p><p><b>Dịch câu:</b> Con chim gõ kiến đang mổ thân cây.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">叼</p></div><div class="card-back"><p class="pinyin"><b>diāo</b> (v.) - Điêu: ngậm, tha (dùng miệng)</p><div class="example"><p class="hanzi">乌鸦便叼起面包走了。</p><p class="translation">Con quạ bèn ngậm lấy bánh mì rồi bay đi.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "叼" để miêu tả con mèo ngậm con cá.</p><p><b>Dịch câu:</b> Con chó ngậm một tờ báo chạy về nhà.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">盆子</p></div><div class="card-back"><p class="pinyin"><b>pénzi</b> (n.) - Bồn tử: cái chậu, cái bô</p><div class="example"><p class="hanzi">它把干面包放到给鸡喝水的盆子里。</p><p class="translation">Nó đặt miếng bánh mì khô vào trong cái chậu cho gà uống nước.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "盆子" để nói về việc trồng hoa trong chậu.</p><p><b>Dịch câu:</b> Làm ơn lấy cho tôi một cái chậu nước.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">吸</p></div><div class="card-back"><p class="pinyin"><b>xī</b> (v.) - Hấp: hút, hít</p><div class="example"><p class="hanzi">面包吸水后变软了。</p><p class="translation">Bánh mì sau khi hút nước đã trở nên mềm.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "吸" để nói về việc hút thuốc lá.</p><p><b>Dịch câu:</b> Con voi dùng vòi hút nước.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">果然</p></div><div class="card-back"><p class="pinyin"><b>guǒrán</b> (adv.) - Quả nhiên: quả nhiên, quả thật</p><div class="example"><p class="hanzi">果然，乌鸦叼着干面包又向放水盆的地方走去。</p><p class="translation">Quả nhiên, con quạ ngậm bánh mì khô lại đi về phía đặt chậu nước.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "果然" để xác nhận một dự đoán.</p><p><b>Dịch câu:</b> Trời nhiều mây, quả nhiên một lát sau thì mưa.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">来回</p></div><div class="card-back"><p class="pinyin"><b>láihuí</b> (v./adv.) - Lai hồi: đi đi lại lại</p><div class="example"><p class="hanzi">它叼着干面包来回走了几次。</p><p class="translation">Nó ngậm bánh mì khô đi đi lại lại mấy lần.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "来回" để miêu tả sự lo lắng của ai đó.</p><p><b>Dịch câu:</b> Vé khứ hồi (đi và về) đi Thượng Hải bao nhiêu tiền?</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">硬币</p></div><div class="card-back"><p class="pinyin"><b>yìngbì</b> (n.) - Ngạnh tệ: đồng xu</p><div class="example"><p class="hanzi">大象用鼻子够硬币的表演。</p><p class="translation">Màn biểu diễn voi dùng vòi lấy đồng xu.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "硬币" để nói về việc tung đồng xu.</p><p><b>Dịch câu:</b> Tôi tìm thấy một đồng xu trên mặt đất.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">栏杆</p></div><div class="card-back"><p class="pinyin"><b>lángān</b> (n.) - Lan can: lan can, rào chắn</p><div class="example"><p class="hanzi">一个人用力太大，把一块硬币扔出了栏杆。</p><p class="translation">Một người dùng sức quá lớn, ném một đồng xu văng ra ngoài lan can.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "栏杆" để miêu tả một cây cầu.</p><p><b>Dịch câu:</b> Đừng dựa vào lan can, rất nguy hiểm.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">伸</p></div><div class="card-back"><p class="pinyin"><b>shēn</b> (v.) - Thân: vươn, duỗi</p><div class="example"><p class="hanzi">大象把长鼻子伸出去够。</p<p class="translation">Con voi vươn cái vòi dài ra để lấy.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "伸" để miêu tả hành động vươn tay.</p><p><b>Dịch câu:</b> Anh ấy vươn tay ra để bắt tay tôi.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">够</p></div><div class="card-back"><p class="pinyin"><b>gòu</b> (v.) - Cấu: với tới, chạm tới</p><div class="example"><p class="hanzi">大象伸长鼻子去够，怎么也够不着。</p><p class="translation">Con voi vươn dài vòi ra để lấy, nhưng làm thế nào cũng không với tới được.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "够" để nói rằng bạn không với tới sách trên giá.</p><p><b>Dịch câu:</b> Bạn có với tới quả táo trên cây không?</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">鼓掌</p></div><div class="card-back"><p class="pinyin"><b>gǔ zhǎng</b> (v.) - Cổ chưởng: vỗ tay</p><div class="example"><p class="hanzi">游客们高兴地鼓起掌来。</p><p class="translation">Các du khách vui vẻ vỗ tay.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "鼓掌" để miêu tả không khí của một buổi hòa nhạc.</p><p><b>Dịch câu:</b> Màn biểu diễn của anh ấy rất xuất sắc, mọi người đều vỗ tay.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">绳子</p></div><div class="card-back"><p class="pinyin"><b>shéngzi</b> (n.) - Thằng tử: dây thừng</p><div class="example"><p class="hanzi">平常被人们用绳子拴在一棵树上。</p><p class="translation">Ngày thường bị người ta dùng dây thừng buộc vào một cái cây.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "绳子" để nói về trò nhảy dây.</p><p><b>Dịch câu:</b> Sợi dây thừng này không đủ dài.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">拴</p></div><div class="card-back"><p class="pinyin"><b>shuān</b> (v.) - Xuyên: buộc, cột</p><div class="example"><p class="hanzi">猴子被绳子拴着。</p><p class="translation">Con khỉ bị dây thừng buộc lại.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "拴" để nói về việc buộc con chó.</p><p><b>Dịch câu:</b> Xin hãy buộc con ngựa của bạn vào đây.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+                <div class="flashcard"><div class="card-front"><p class="hanzi-large">抢</p></div><div class="card-back"><p class="pinyin"><b>qiǎng</b> (v.) - Thương: cướp, giật, giành</p><div class="example"><p class="hanzi">那些乌鸦常常抢猴子的食物吃。</p><p class="translation">Những con quạ đó thường giành đồ ăn của khỉ để ăn.</p></div><div class="exercise-section"><h5>Bài tập</h5><p><b>Đặt câu:</b> Dùng "抢" để miêu tả việc trẻ con giành đồ chơi.</p><p><b>Dịch câu:</b> Cẩn thận điện thoại của bạn, có người cướp giật trên đường.</p></div></div><button class="toggle-button self-center mt-4" onclick="toggleCard(this)">Xem chi tiết</button></div>
+            </div>
+        </section>
+
+        <!-- Phần 2: Ngữ pháp -->
+        <section class="lesson-section" id="grammar">
+            <h2 class="text-2xl font-bold mb-6 text-slate-700">II. Mẫu câu chính (句式)</h2>
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-4 text-slate-600">1. 把……V 在……，然后…… (Bǎ... V zài..., ránhòu...)</h3>
+                <p>Mẫu câu này dùng để nhấn mạnh sự xử lý một đối tượng (bằng "把"), đặt nó (V 在) tại một vị trí cụ thể, sau đó (然后) thực hiện một hành động tiếp theo.</p>
+                <div class="example">
+                    <p class="hanzi">人们<span class="text-red-600">把</span>葡萄<span class="text-red-600">放在</span>一个地方，<span class="text-red-600">然后</span>又把小猩猩的几个同伴都放出来。</p>
+                    <p class="translation">Người ta đặt nho ở một nơi, sau đó lại thả mấy người bạn của con đười ươi nhỏ ra.</p>
+                </div>
+                <div class="example">
+                    <p class="hanzi">乌鸦<span class="text-red-600">把</span>干面包<span class="text-red-600">放到</span>水盆子里，<span class="text-red-600">然后</span>再啄。</p>
+                    <p class="translation">Con quạ đặt miếng bánh mì khô vào trong chậu nước, sau đó mới mổ.</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-4 text-slate-600">2. 当……的时候，……便…… (Dāng... de shíhou, ...biàn...)</h3>
+                <p>Mẫu câu này có nghĩa là "Khi... thì...". "便" (biàn) là một phó từ, tương tự như "就" (jiù), chỉ một hành động xảy ra ngay sau khi điều kiện được đáp ứng, thường dùng trong văn viết hoặc kể chuyện.</p>
+                <div class="example">
+                    <p class="hanzi"><span class="text-red-600">当</span>一只乌鸦跳到猴子身边<span class="text-red-600">的时候</span>，猴子<span class="text-red-600">便</span>突然跳起来，一把抓住它。</p>
+                    <p class="translation">Khi một con quạ nhảy đến bên cạnh con khỉ, con khỉ liền đột ngột nhảy dựng lên, tóm chặt lấy nó.</p>
+                </div>
+                 <div class="example">
+                    <p class="hanzi"><span class="text-red-600">当</span>同伴们都睡着了<span class="text-red-600">的时候</span>，小猩猩<span class="text-red-600">便</span>偷偷地找出葡萄，吃了。</p>
+                    <p class="translation">Khi các bạn đồng hành đều ngủ say, con đười ươi nhỏ liền lén lút tìm nho ra ăn.</p>
+                </div>
+            </div>
+        </section>
+
+         <!-- Phần 3: Bài khóa -->
+        <section class="lesson-section" id="dialogue">
+             <h2 class="text-2xl font-bold mb-6 text-slate-700">III. Bài khóa (课文)</h2>
+             <h3 class="text-xl font-semibold mb-4 text-slate-600">动物动脑筋 (Động vật động não)</h3>
+             
+             <div class="mb-4 p-4 bg-gray-50 rounded-lg">
+                <p class="hanzi">动物也会动脑筋吗？是的，它们也会动脑筋。下面就是几个例子：</p>
+                <p class="pinyin">Dòngwù yě huì dòng nǎojīn ma? Shì de, tāmen yě huì dòng nǎojīn. Xiàmiàn jiùshì jǐ gè lìzi:</p>
+                <p class="translation">Động vật cũng biết động não ư? Đúng vậy, chúng cũng biết động não. Dưới đây là vài ví dụ:</p>
+             </div>
+             
+             <div class="mb-4">
+                <p class="hanzi">人们把葡萄放在一个地方，故意让一只小猩猩看见，然后又把它的几个同伴都放出来。和同伴在一起的时候，小猩猩很安静。3个小时后，等同伴们都睡着了，它才悄悄站起来，偷偷地找出葡萄吃了。</p>
+                <p class="pinyin">Rénmen bǎ pútao fàng zài yīgè dìfāng, gùyì ràng yī zhǐ xiǎo xīngxing kànjiàn, ránhòu yòu bǎ tā de jǐ gè tóngbàn dōu fàng chūlái. Hé tóngbàn zài yīqǐ de shíhòu, xiǎo xīngxing hěn ānjìng. 3 gè xiǎoshí hòu, děng tóngbànmen dōu shuìzháole, tā cái qiāoqiāo zhàn qǐlái, tōutōu de zhǎo chū pútao chīle.</p>
+                <p class="translation">Người ta đặt nho ở một nơi, cố tình cho một con đười ươi nhỏ nhìn thấy, sau đó lại thả mấy người bạn của nó ra. Khi ở cùng các bạn, con đười ươi nhỏ rất yên tĩnh. 3 tiếng sau, đợi các bạn đều ngủ say, nó mới lặng lẽ đứng dậy, lén lút tìm nho ra ăn.</p>
+             </div>
+             
+              <div class="mb-4">
+                <p class="hanzi">有一只乌鸦，一次，主人拿一块干面包给它，乌鸦用嘴啄了一下，发现面包很硬，便叼起面包走了。走了没多远，乌鸦停了下来，把干面包放到给鸡喝水的盆子里，然后再啄出来。面包吸水后变软了，乌鸦就一点儿一点儿地吃了起来。</p>
+                <p class="pinyin">Yǒu yī zhǐ wūyā, yīcì, zhǔrén ná yīkuài gàn miànbāo gěi tā, wūyā yòng zuǐ zhuóle yīxià, fāxiàn miànbāo hěn yìng, biàn diāo qǐ miànbāo zǒule. Zǒule méi duōyuǎn, wūyā tíngle xiàlái, bǎ gàn miànbāo fàng dào gěi jī hē shuǐ de pénzi lǐ, ránhòu zàizuó chūlái. Miànbāo xī shuǐ hòu biàn ruǎnle, wūyā jiù yīdiǎr yīdiǎr de chīle qǐlái.</p>
+                <p class="translation">Có một con quạ, một lần, người chủ lấy một miếng bánh mì khô cho nó, con quạ dùng mỏ mổ một cái, phát hiện bánh mì rất cứng, bèn ngậm lấy bánh mì rồi bay đi. Đi chưa được bao xa, con quạ dừng lại, đặt miếng bánh mì khô vào trong cái chậu cho gà uống nước, sau đó lại mổ ra. Bánh mì sau khi hút nước đã trở nên mềm, con quạ liền từng chút từng chút một ăn.</p>
+             </div>
+             
+             <!-- Thêm 2 đoạn cuối từ hình ảnh -->
+             <div class="mb-4">
+                 <p class="hanzi">在动物园里，有时人们会看到大象用鼻子够硬币的表演。一次，一个人用力太大，把一块硬币扔出了栏杆，扔到了墙边。大象把长鼻子伸出去够，怎么也够不着。人们以为它这回没办法了，谁知大象对着那块硬币开始动脑筋了。不一会儿，大象已经有了办法。它用长鼻子吸足气后对着墙用力一吹，这口气像风一样，遇到墙又回来，把硬币带了过来，大象很容易地吸住了硬币，游客们高兴地鼓起掌来。</p>
+                 <p class="pinyin">Zài dòngwùyuán lǐ, yǒushí rénmen huì kàn dào dàxiàng yòng bízi gòu yìngbì de biǎoyǎn. Yīcì, yīgè rén yònglì tài dà, bǎ yīkuài yìngbì rēng chūle lángān, rēng dàole qiáng biān. Dàxiàng bǎ zhǎng bízi shēn chūqù gòu, zěnme yě gòu bùzháo. Rénmen yǐwéi tā zhè huí méi bànfǎle, shéi zhī dàxiàng duìzhe nà kuài yìngbì kāishǐ dòng nǎojīnle. Bù yīhuǐ'r, dàxiàng yǐjīng yǒule bànfǎ. Tā yòng zhǎng bízi xī zú qì hòu duìzhe qiáng yònglì yī chuī, zhè kǒuqì xiàng fēng yīyàng, yù dào qiáng yòu huílái, bǎ yìngbì dài le guòlái, dàxiàng hěn róngyì de xī zhùle yìngbì, yóukèmen gāoxìng de gǔ qǐ zhǎng lái.</p>
+                 <p class="translation">Ở sở thú, đôi khi mọi người sẽ thấy màn biểu diễn voi dùng vòi lấy đồng xu. Một lần, một người dùng sức quá lớn, ném một đồng xu văng ra ngoài lan can, rơi xuống cạnh tường. Con voi vươn cái vòi dài ra để lấy, nhưng làm thế nào cũng không với tới được. Mọi người tưởng lần này nó hết cách rồi, ai ngờ con voi bắt đầu động não với đồng xu đó. Không lâu sau, con voi đã có cách. Nó dùng vòi hút đầy khí rồi thổi mạnh vào tường, luồng khí này như một cơn gió, gặp tường lại dội ngược về, mang theo đồng xu lại gần, con voi dễ dàng hút lấy đồng xu, các du khách vui vẻ vỗ tay.</p>
+             </div>
+
+             <div class="mb-4">
+                 <p class="hanzi">有一只猴子，平常被人们用绳子拴在一棵树上。一些乌鸦看猴子不能走远，常常抢猴子的食物吃，弄得猴子常常饿肚子。一天早晨，这只猴子好像病了似的，样子看起来很难受，它慢慢地走了几步，后来倒在了地上。那些乌鸦看见猴子不动了，以为它死了，便一起飞下来，打算把猴子的食物都吃光。猴子也真像死了一样，一动也不动。当一只乌鸦跳到猴子身边的时候，没想到猴子突然跳起来，一把抓住它，把它咬死了。从此，乌鸦们再也不敢来抢猴子的食物了。</p>
+                 <p class="pinyin">Yǒu yī zhǐ hóuzi, píngcháng bèi rénmen yòng shéngzi shuān zài yī kē shù shàng. Yīxiē wūyā kàn hóuzi bùnéng zǒu yuǎn, chángcháng qiǎng hóuzi de shíwù chī, nòng dé hóuzi chángcháng è dùzi. Yītiān zǎochén, zhè zhǐ hóuzi hǎoxiàng bìngle shì de, yàngzi kàn qǐlái hěn nánshòu, tā màn man de zǒule jǐ bù, hòulái dào zàile dìshàng. Nàxiē wūyā kànjiàn hóuzi bù dòngle, yǐwéi tā sǐle, biàn yīqǐ fēi xiàlái, dǎsuàn bǎ hóuzi de shíwù dōu chī guāng. Hóuzi yě zhēn xiàng sǐle yīyàng, yī dòng yě bù dòng. Dāng yī zhǐ wūyā tiào dào hóuzi shēnbiān de shíhòu, méi xiǎngdào hóuzi túrán tiào qǐlái, yī bǎ zhuā zhù tā, bǎ tā yǎo sǐle. Cóngcǐ, wūyāmen zài yě bù gǎn lái qiǎng hóuzi de shíwùle.</p>
+                 <p class="translation">Có một con khỉ, ngày thường bị người ta dùng dây thừng buộc vào một cái cây. Một số con quạ thấy khỉ không thể đi xa, thường xuyên cướp đồ ăn của khỉ, khiến con khỉ toàn bị đói. Một buổi sáng, con khỉ này có vẻ như bị ốm, dáng vẻ trông rất khó chịu, nó chậm rãi đi vài bước, sau đó ngã gục xuống đất. Bầy quạ thấy khỉ không cử động nữa, tưởng nó chết rồi, bèn cùng nhau bay xuống, định ăn hết thức ăn của khỉ. Con khỉ cũng giống như chết thật, không hề động đậy. Khi một con quạ nhảy đến bên cạnh, không ngờ con khỉ đột ngột nhảy dựng lên, tóm chặt lấy nó, cắn chết. Từ đó, bầy quạ không bao giờ dám đến cướp thức ăn của khỉ nữa.</p>
+             </div>
+        </section>
+
+        <!-- Phần 4: Bài tập -->
+        <section class="lesson-section" id="exercises">
+            <h2 class="text-2xl font-bold mb-6 text-slate-700">IV. Bài tập (练习)</h2>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-slate-600">1. Hoàn thành câu theo mẫu</h3>
+                <div class="space-y-4 mt-4">
+                    <p><b>1. (把……V 在……，然后……)</b><br>
+                       乌鸦 <input type="text" class="border-b-2 border-gray-300 focus:border-blue-500 outline-none" style="width: 300px;">，然后再啄出来。</p>
+                    <p><b>2. (当……的时候，……便……)</b><br>
+                       <input type="text" class="border-b-2 border-gray-300 focus:border-blue-500 outline-none" style="width: 300px;">，小猩猩便偷偷地找出葡萄，吃了。</p>
+                </div>
+                <button class="toggle-button mt-4" onclick="toggleAnswers('answers1')">Hiện đáp án</button>
+                <div id="answers1" class="answer">
+                    <p>1. 乌鸦<b>把干面包放在水盆子里</b>，然后再啄出来。</p>
+                    <p>2. <b>当同伴们都睡着了的时候</b>，小猩猩便偷偷地找出葡萄，吃了。</p>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-slate-600">2. Bài tập dịch Việt - Trung</h3>
+                 <div class="space-y-4">
+                    <p>1. Con khỉ đó rất thông minh, nó biết cách động não. (猴子, 动脑筋)</p>
+                    <p>2. Anh ấy cố ý không nói cho tôi biết sự thật. (故意)</p>
+                    <p>3. Xin hãy giữ yên lặng, đừng làm phiền các bạn đồng hành khác. (悄悄, 同伴)</p>
+                    <p>4. Con quạ mổ (啄) miếng bánh mì khô (干面包), rồi ngậm (叼) nó bay đi.</p>
+                    <p>5. Như tôi dự đoán, anh ấy quả nhiên đã đồng ý. (果然)</p>
+                    <p>6. Tôi không thể vươn (伸) tới quyển sách trên giá cao nhất. (够)</p>
+                    <p>7. Mọi người đều vỗ tay (鼓掌) cho màn biểu diễn của con voi (大象).</p>
+                    <p>8. Con chó bị buộc (拴) vào gốc cây bằng một sợi dây thừng (绳子).</p>
+                    <p>9. Đừng cướp (抢) đồ ăn của tôi!</p>
+                    <p>10. Anh ta bí mật (偷偷) lấy trộm một quả nho (葡萄).</p>
+                </div>
+                <button class="toggle-button mt-4" onclick="toggleAnswers('answers2')">Hiện đáp án</button>
+                <div id="answers2" class="answer">
+                    <p>1. 那只猴子很聪明，它会动脑筋。</p>
+                    <p>2. 他故意不告诉我实话。</p>
+                    <p>3. 请悄悄的，不要打扰别的同伴。</p>
+                    <p>4. 乌鸦啄了一下干面包，然后叼着它飞走了。</p>
+                    <p>5. 果然不出我所料，他同意了。</p>
+                    <p>6. 我伸出手也够不着最高架子上的书。</p>
+                    <p>7. 大家都在为大象的表演鼓掌。</p>
+                    <p>8. 狗被绳子拴在树上了。</p>
+                    <p>9. 别抢我的食物！</p>
+                    <p>10. 他偷偷地偷了一个葡萄。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleAnswers(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+        
+        function toggleCard(button) {
+            const cardBack = button.previousElementSibling;
+            if (cardBack.style.display === 'none' || cardBack.style.display === '') {
+                cardBack.style.display = 'block';
+                button.textContent = 'Ẩn chi tiết';
+            } else {
+                cardBack.style.display = 'none';
+                button.textContent = 'Xem chi tiết';
+            }
+        }
+    </script>
+
+</body>
+</html>
